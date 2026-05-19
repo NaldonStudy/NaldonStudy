@@ -9,6 +9,6 @@ export default [
     },
   },
   {
-    ignores: [".next/*", "node_modules/*", "temp_*"],
+    ignores: [".next/*", "node_modules/*", "temp_*", "out/*"],
   }
 ];
