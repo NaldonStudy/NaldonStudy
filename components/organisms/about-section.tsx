@@ -32,10 +32,10 @@ const aboutInfo: AboutInfo = {
   education: '고려대학교 세종캠퍼스 전자및정보공학과',
   birthYear: '2019학번 (2025년 졸업)',
   profileImages: [
-    '/assets/profile/DoHun1.jpg',
-    '/assets/profile/DoHun2.jpg',
-    '/assets/profile/DoHun3.jpg',
-    '/assets/profile/DoHun4.jpg',
+    '/NaldonStudy/assets/profile/DoHun1.jpg',
+    '/NaldonStudy/assets/profile/DoHun2.jpg',
+    '/NaldonStudy/assets/profile/DoHun3.jpg',
+    '/NaldonStudy/assets/profile/DoHun4.jpg',
   ],
   keywords: ['소통형 개발자', '빠른 적응력', '문제 해결 중심', '책임감 있는', '지속적 성장'],
 }

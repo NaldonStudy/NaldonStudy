@@ -83,7 +83,7 @@ export function HeroSection() {
           <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/20 p-2 bg-background shadow-2xl">
             <div className="w-full h-full rounded-full overflow-hidden bg-secondary">
               <img
-                src="/assets/profile/dohun-image.jpg"
+                src="/NaldonStudy/assets/profile/dohun-image.jpg"
                 alt="김도훈 프로필"
                 className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500 scale-105 hover:scale-100"
               />

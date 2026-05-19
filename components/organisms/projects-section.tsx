@@ -77,7 +77,7 @@ const projectsData: Project[] = [
       'Nginx',
     ],
     role: 'Backend / Infra',
-    thumbnail: '/assets/projects/nodap/landing.svg',
+    thumbnail: '/NaldonStudy/assets/projects/nodap/landing.svg',
     details: {
       fullDescription:
         '사용자의 현재 기분에 어울리는 노래를 추천하고 공유하며 소통하는 서비스입니다. PM 1명, FE 1명, BE 1명, INFRA+BE 1명으로 구성된 팀에서 백엔드 아키텍처 설계와 CI/CD 파이프라인 구축, 클라우드 인프라 운영을 담당했습니다. 도메인 주도 설계(DDD)를 지향하며, 데이터 무결성과 보안을 최우선으로 고려하여 개발했습니다.',
@@ -127,13 +127,13 @@ const projectsData: Project[] = [
         ],
       },
       screenshots: [
-        '/assets/projects/nodap/landing.svg',
-        '/assets/projects/nodap/album.svg',
-        '/assets/projects/nodap/inside-album.svg',
-        '/assets/projects/nodap/create-album.svg',
-        '/assets/projects/nodap/create-cover.svg',
-        '/assets/projects/nodap/create-category.svg',
-        '/assets/projects/nodap/add-song.svg',
+        '/NaldonStudy/assets/projects/nodap/landing.svg',
+        '/NaldonStudy/assets/projects/nodap/album.svg',
+        '/NaldonStudy/assets/projects/nodap/inside-album.svg',
+        '/NaldonStudy/assets/projects/nodap/create-album.svg',
+        '/NaldonStudy/assets/projects/nodap/create-cover.svg',
+        '/NaldonStudy/assets/projects/nodap/create-category.svg',
+        '/NaldonStudy/assets/projects/nodap/add-song.svg',
       ],
     },
   },
@@ -232,7 +232,7 @@ const projectsData: Project[] = [
     links: {
       github: 'https://github.com/NaldonStudy/WalletSlot',
     },
-    thumbnail: '/assets/projects/walletslot/system-architecture.png',
+    thumbnail: '/NaldonStudy/assets/projects/walletslot/system-architecture.png',
     details: {
       fullDescription:
         '본인의 소비 지출에 대해 무뎌져 있는 사람들을 위해 자동 및 수동으로 슬롯(계좌 분할)을 관리해주는 자산 관리 플랫폼입니다. 인프라 1, 프론트 3, 백엔드 2, 데이터 1 등 총 6인의 팀 프로젝트로 진행되었으며, 백엔드 리더로서 전체 아키텍처와 보안 설계를 주도했습니다. SSAFY 내부 금융망과 연동하여 실제 금융 환경과 유사한 경험을 제공하며, AI 기반 소비 리포트를 통해 계획적인 소비 습관 형성을 돕습니다.',
@@ -283,7 +283,7 @@ const projectsData: Project[] = [
         ],
       },
       screenshots: [
-        '/assets/projects/walletslot/system-architecture.png',
+        '/NaldonStudy/assets/projects/walletslot/system-architecture.png',
       ],
     },
   },

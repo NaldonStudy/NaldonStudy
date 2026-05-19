@@ -43,4 +43,4 @@ node .gemini/skills/pre-commit-validator/scripts/validate-all.cjs
 > | 폴더 명명 | ✅ 통과 / ❌ 실패 | |
 > | 함수 명명 | ✅ 통과 / ❌ 실패 | |
 > 
-> [AI의견] (전체 결과에 따른 제언)
+> [AI의견] 모든 검증이 완료되었습니다. 이제 `commit-organizer` 스킬을 사용하여 변경 사항을 논리적으로 나누어 커밋할 준비가 되었습니다.
