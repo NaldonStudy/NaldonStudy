@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, memo } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   X, 
@@ -17,7 +18,7 @@ import {
   Code2,
   ListChecks,
   MessageSquare,
-  ImageIcon as Image,
+  ImageIcon,
   Trophy
 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -77,7 +78,7 @@ const projectsData: Project[] = [
       'Nginx',
     ],
     role: 'Backend / Infra',
-    thumbnail: '/NaldonStudy/assets/projects/nodap/landing.svg',
+    thumbnail: '/assets/projects/nodap/landing.svg',
     details: {
       fullDescription:
         '사용자의 현재 기분에 어울리는 노래를 추천하고 공유하며 소통하는 서비스입니다. PM 1명, FE 1명, BE 1명, INFRA+BE 1명으로 구성된 팀에서 백엔드 아키텍처 설계와 CI/CD 파이프라인 구축, 클라우드 인프라 운영을 담당했습니다. 도메인 주도 설계(DDD)를 지향하며, 데이터 무결성과 보안을 최우선으로 고려하여 개발했습니다.',
@@ -127,13 +128,13 @@ const projectsData: Project[] = [
         ],
       },
       screenshots: [
-        '/NaldonStudy/assets/projects/nodap/landing.svg',
-        '/NaldonStudy/assets/projects/nodap/album.svg',
-        '/NaldonStudy/assets/projects/nodap/inside-album.svg',
-        '/NaldonStudy/assets/projects/nodap/create-album.svg',
-        '/NaldonStudy/assets/projects/nodap/create-cover.svg',
-        '/NaldonStudy/assets/projects/nodap/create-category.svg',
-        '/NaldonStudy/assets/projects/nodap/add-song.svg',
+        '/assets/projects/nodap/landing.svg',
+        '/assets/projects/nodap/album.svg',
+        '/assets/projects/nodap/inside-album.svg',
+        '/assets/projects/nodap/create-album.svg',
+        '/assets/projects/nodap/create-cover.svg',
+        '/assets/projects/nodap/create-category.svg',
+        '/assets/projects/nodap/add-song.svg',
       ],
     },
   },
@@ -232,7 +233,7 @@ const projectsData: Project[] = [
     links: {
       github: 'https://github.com/NaldonStudy/WalletSlot',
     },
-    thumbnail: '/NaldonStudy/assets/projects/walletslot/system-architecture.png',
+    thumbnail: '/assets/projects/walletslot/system-architecture.png',
     details: {
       fullDescription:
         '본인의 소비 지출에 대해 무뎌져 있는 사람들을 위해 자동 및 수동으로 슬롯(계좌 분할)을 관리해주는 자산 관리 플랫폼입니다. 인프라 1, 프론트 3, 백엔드 2, 데이터 1 등 총 6인의 팀 프로젝트로 진행되었으며, 백엔드 리더로서 전체 아키텍처와 보안 설계를 주도했습니다. SSAFY 내부 금융망과 연동하여 실제 금융 환경과 유사한 경험을 제공하며, AI 기반 소비 리포트를 통해 계획적인 소비 습관 형성을 돕습니다.',
@@ -283,7 +284,7 @@ const projectsData: Project[] = [
         ],
       },
       screenshots: [
-        '/NaldonStudy/assets/projects/walletslot/system-architecture.png',
+        '/assets/projects/walletslot/system-architecture.png',
       ],
     },
   },
@@ -353,38 +354,7 @@ const projectsData: Project[] = [
   },
 ]
 
-export function ProjectsSection() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-
-  return (
-    <SectionWrapper id="projects" className="bg-secondary/30">
-      <SectionHeader title="Projects" subtitle="진행한 프로젝트들" />
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projectsData.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-              onClick={() => setSelectedProject(project)}
-            />
-          ))}
-        </div>
-
-      {/* Project Detail Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <ProjectDetailModal
-            project={selectedProject}
-            onClose={() => setSelectedProject(null)}
-          />
-        )}
-      </AnimatePresence>
-    </SectionWrapper>
-  )
-}
-
-function ProjectCard({
+const ProjectCard = memo(({
   project,
   index,
   onClick,
@@ -392,26 +362,26 @@ function ProjectCard({
   project: Project
   index: number
   onClick: () => void
-}) {
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <Card
         className="group h-full cursor-pointer border-border/50 bg-card/90 shadow-sm hover:border-primary/30 hover:shadow-lg transition-all duration-300"
         onClick={onClick}
       >
-        {/* Thumbnail */}
         <div className="relative h-48 bg-gradient-to-br from-primary/20 to-accent/20 overflow-hidden">
           {project.thumbnail ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={project.thumbnail}
               alt={project.title}
+              fill
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
@@ -499,7 +469,8 @@ function ProjectCard({
       </Card>
     </motion.div>
   )
-}
+})
+ProjectCard.displayName = 'ProjectCard'
 
 function ProjectDetailModal({
   project,
@@ -524,7 +495,6 @@ function ProjectDetailModal({
         className="relative w-full max-w-4xl my-8 bg-card border border-border rounded-2xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-50 p-2 rounded-full bg-background/80 hover:bg-background text-foreground transition-colors border border-border shadow-sm"
@@ -532,12 +502,12 @@ function ProjectDetailModal({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Header Section */}
         <div className="relative h-48 md:h-64 bg-gradient-to-br from-primary/10 to-accent/10">
           {project.thumbnail ? (
-            <img
+            <Image
               src={project.thumbnail}
               alt={project.title}
+              fill
               className="w-full h-full object-cover opacity-40 mix-blend-overlay"
             />
           ) : (
@@ -570,7 +540,6 @@ function ProjectDetailModal({
           </div>
         </div>
 
-        {/* Main Content with Tabs */}
         <div className="p-8">
           <Tabs defaultValue="overview" className="w-full">
             <TabsList className={`grid w-full ${project.details.screenshots ? 'grid-cols-4' : 'grid-cols-3'} mb-8`}>
@@ -588,27 +557,27 @@ function ProjectDetailModal({
               </TabsTrigger>
               {project.details.screenshots && (
                 <TabsTrigger value="gallery" className="gap-2">
-                  <Image className="w-4 h-4" />
+                  <ImageIcon className="w-4 h-4" />
                   <span className="hidden sm:inline">갤러리</span>
                 </TabsTrigger>
               )}
             </TabsList>
 
             <div className="min-h-[400px]">
-              {/* Gallery Tab */}
               {project.details.screenshots && (
                 <TabsContent value="gallery" className="space-y-8 animate-in fade-in-50 duration-500">
                   <section>
                     <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
-                      <Image className="w-5 h-5 text-primary" />
+                      <ImageIcon className="w-5 h-5 text-primary" />
                       프로젝트 스크린샷
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {project.details.screenshots.map((src, i) => (
                         <div key={i} className="group relative aspect-video rounded-xl overflow-hidden border border-border bg-secondary/10">
-                          <img
+                          <Image
                             src={src}
                             alt={`${project.title} screenshot ${i + 1}`}
+                            fill
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -623,7 +592,6 @@ function ProjectDetailModal({
                 </TabsContent>
               )}
 
-              {/* Overview Tab */}
               <TabsContent value="overview" className="space-y-8 animate-in fade-in-50 duration-500">
                 <section>
                   <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
@@ -666,7 +634,6 @@ function ProjectDetailModal({
                 </div>
               </TabsContent>
 
-              {/* Technical Tab */}
               <TabsContent value="technical" className="space-y-8 animate-in fade-in-50 duration-500">
                 <section>
                   <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
@@ -698,7 +665,6 @@ function ProjectDetailModal({
                 </section>
               </TabsContent>
 
-              {/* Problem Solving Tab */}
               <TabsContent value="problem-solving" className="space-y-8 animate-in fade-in-50 duration-500">
                 <section>
                   <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
@@ -781,7 +747,6 @@ function ProjectDetailModal({
             </div>
           </Tabs>
 
-          {/* Links Section */}
           {(project.links?.github || project.links?.demo || project.links?.video) && (
             <div className="mt-12 pt-8 border-t border-border flex flex-wrap gap-4">
               {project.links.github && (
@@ -805,5 +770,35 @@ function ProjectDetailModal({
         </div>
       </motion.div>
     </motion.div>
+  )
+}
+
+export function ProjectsSection() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+
+  return (
+    <SectionWrapper id="projects" className="bg-secondary/30">
+      <SectionHeader title="Projects" subtitle="진행한 프로젝트들" />
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projectsData.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              onClick={() => setSelectedProject(project)}
+            />
+          ))}
+        </div>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectDetailModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
+    </SectionWrapper>
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, memo } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Play, ExternalLink, ImageIcon, Camera } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -26,13 +27,6 @@ interface GalleryItem {
 
 const galleryData: GalleryItem[] = [
   // TODO: 활동 사진이 추가되면 여기에 데이터를 추가하세요.
-  // {
-  //   id: 'gallery-1',
-  //   type: 'image',
-  //   title: '활동 제목',
-  //   description: '활동에 대한 설명입니다.',
-  //   src: '/assets/gallery/activity-1.jpg',
-  // },
 ]
 
 export function GallerySection() {
@@ -77,7 +71,7 @@ export function GallerySection() {
   )
 }
 
-function GalleryCard({
+const GalleryCard = memo(({
   item,
   index,
   onClick,
@@ -85,18 +79,18 @@ function GalleryCard({
   item: GalleryItem
   index: number
   onClick: () => void
-}) {
+}) => {
   const [imageError, setImageError] = useState(false)
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
     >
       <Card
-        className="group cursor-pointer overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+        className="group cursor-pointer overflow-hidden border-border/50 bg-card/95 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
         onClick={onClick}
       >
         <CardContent className="p-0">
@@ -104,11 +98,11 @@ function GalleryCard({
             {item.type === 'youtube' ? (
               <>
                 {item.thumbnail && !imageError ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  <Image
                     src={item.thumbnail}
                     alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={() => setImageError(true)}
                   />
                 ) : (
@@ -125,11 +119,11 @@ function GalleryCard({
             ) : (
               <>
                 {!imageError ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  <Image
                     src={item.src}
                     alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={() => setImageError(true)}
                   />
                 ) : (
@@ -151,9 +145,10 @@ function GalleryCard({
       </Card>
     </motion.div>
   )
-}
+})
+GalleryCard.displayName = 'GalleryCard'
 
-function LightboxModal({ item, onClose }: { item: GalleryItem; onClose: () => void }) {
+const LightboxModal = memo(({ item, onClose }: { item: GalleryItem; onClose: () => void }) => {
   const [imageError, setImageError] = useState(false)
 
   return (
@@ -161,7 +156,7 @@ function LightboxModal({ item, onClose }: { item: GalleryItem; onClose: () => vo
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/90 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/95"
       onClick={onClose}
     >
       <motion.div
@@ -181,7 +176,7 @@ function LightboxModal({ item, onClose }: { item: GalleryItem; onClose: () => vo
         </button>
 
         {/* Content */}
-        <div className="aspect-video bg-secondary">
+        <div className="aspect-video bg-secondary relative">
           {item.type === 'youtube' ? (
             <iframe
               src={`${item.src}?autoplay=1`}
@@ -193,11 +188,11 @@ function LightboxModal({ item, onClose }: { item: GalleryItem; onClose: () => vo
           ) : (
             <>
               {!imageError ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   src={item.src}
                   alt={item.title}
-                  className="w-full h-full object-contain"
+                  fill
+                  className="object-contain"
                   onError={() => setImageError(true)}
                 />
               ) : (
@@ -234,4 +229,5 @@ function LightboxModal({ item, onClose }: { item: GalleryItem; onClose: () => vo
       </motion.div>
     </motion.div>
   )
-}
+})
+LightboxModal.displayName = 'LightboxModal'

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const fullText = '소통의 가치를 중요하게 생각하는\n개발자 김도훈입니다'
@@ -81,10 +82,12 @@ export function HeroSection() {
         >
           <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl animate-pulse" />
           <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/20 p-2 bg-background shadow-2xl">
-            <div className="w-full h-full rounded-full overflow-hidden bg-secondary">
-              <img
-                src="/NaldonStudy/assets/profile/dohun-image.jpg"
+            <div className="w-full h-full rounded-full overflow-hidden bg-secondary relative">
+              <Image
+                src="/assets/profile/dohun-image.jpg"
                 alt="김도훈 프로필"
+                fill
+                priority
                 className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500 scale-105 hover:scale-100"
               />
             </div>
@@ -100,7 +103,7 @@ export function HeroSection() {
             initial={{ opacity: 0, x: 20 }}
             animate={isTypingComplete ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ delay: 1.1, duration: 0.5 }}
-            className="absolute -bottom-2 -right-2 bg-card border border-border px-4 py-2 rounded-2xl shadow-xl backdrop-blur-md"
+            className="absolute -bottom-2 -right-2 bg-card/95 border border-border px-4 py-2 rounded-2xl shadow-xl"
           >
             <p className="text-xs font-bold text-primary flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />

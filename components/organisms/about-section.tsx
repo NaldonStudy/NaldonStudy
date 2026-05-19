@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, Github, Linkedin, BookOpen, MapPin, Calendar, GraduationCap, CheckCircle2 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -32,13 +33,51 @@ const aboutInfo: AboutInfo = {
   education: '고려대학교 세종캠퍼스 전자및정보공학과',
   birthYear: '2019학번 (2025년 졸업)',
   profileImages: [
-    '/NaldonStudy/assets/profile/DoHun1.jpg',
-    '/NaldonStudy/assets/profile/DoHun2.jpg',
-    '/NaldonStudy/assets/profile/DoHun3.jpg',
-    '/NaldonStudy/assets/profile/DoHun4.jpg',
+    '/assets/profile/DoHun1.jpg',
+    '/assets/profile/DoHun2.jpg',
+    '/assets/profile/DoHun3.jpg',
+    '/assets/profile/DoHun4.jpg',
   ],
   keywords: ['소통형 개발자', '빠른 적응력', '문제 해결 중심', '책임감 있는', '지속적 성장'],
 }
+
+const InfoItem = memo(({
+  icon,
+  label,
+  value,
+  href,
+}: {
+  icon: React.ReactNode
+  label: string
+  value: string
+  href?: string
+}) => {
+  const content = (
+    <div className="flex items-center gap-4">
+      <div className="text-primary">{icon}</div>
+      <div>
+        <p className="text-xs text-muted-foreground">{label}</p>
+        <p className="text-sm font-medium text-foreground">{value}</p>
+      </div>
+    </div>
+  )
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block hover:bg-secondary/50 -mx-2 px-2 py-2 rounded-lg transition-colors"
+      >
+        {content}
+      </a>
+    )
+  }
+
+  return <div className="py-2">{content}</div>
+})
+InfoItem.displayName = 'InfoItem'
 
 export function AboutSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -46,7 +85,7 @@ export function AboutSection() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % aboutInfo.profileImages.length)
-    }, 5000) // 5초마다 변경
+    }, 5000)
 
     return () => clearInterval(timer)
   }, [])
@@ -68,16 +107,22 @@ export function AboutSection() {
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-3xl bg-gradient-to-br from-primary/20 via-background to-accent/20 p-1">
                 <div className="w-full h-full rounded-[1.4rem] bg-card overflow-hidden border border-border/50 relative">
                   <AnimatePresence mode="wait">
-                    <motion.img
+                    <motion.div
                       key={currentImageIndex}
-                      src={aboutInfo.profileImages[currentImageIndex]}
-                      alt={`${aboutInfo.name} 프로필 ${currentImageIndex + 1}`}
                       initial={{ opacity: 0, scale: 1.1 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.8, ease: "easeInOut" }}
-                      className="w-full h-full object-cover"
-                    />
+                      className="w-full h-full relative"
+                    >
+                      <Image
+                        src={aboutInfo.profileImages[currentImageIndex]}
+                        alt={`${aboutInfo.name} 프로필 ${currentImageIndex + 1}`}
+                        fill
+                        className="object-cover"
+                        priority={currentImageIndex === 0}
+                      />
+                    </motion.div>
                   </AnimatePresence>
                   
                   {/* Slider Progress Indicator */}
@@ -109,7 +154,7 @@ export function AboutSection() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <Card className="border-border/50 bg-card/90 shadow-sm overflow-hidden">
+            <Card className="border-border/50 bg-card/95 shadow-sm overflow-hidden">
               <div className="h-1.5 bg-gradient-to-r from-primary to-accent" />
               <CardContent className="p-8">
                 <div className="flex items-center justify-between mb-8">
@@ -181,43 +226,5 @@ export function AboutSection() {
         </div>
       </SectionWrapper>
   )
-}
-
-
-function InfoItem({
-  icon,
-  label,
-  value,
-  href,
-}: {
-  icon: React.ReactNode
-  label: string
-  value: string
-  href?: string
-}) {
-  const content = (
-    <div className="flex items-center gap-4">
-      <div className="text-primary">{icon}</div>
-      <div>
-        <p className="text-xs text-muted-foreground">{label}</p>
-        <p className="text-sm font-medium text-foreground">{value}</p>
-      </div>
-    </div>
-  )
-
-  if (href) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block hover:bg-secondary/50 -mx-2 px-2 py-2 rounded-lg transition-colors"
-      >
-        {content}
-      </a>
-    )
-  }
-
-  return <div className="py-2">{content}</div>
 }
 

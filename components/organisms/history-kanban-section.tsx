@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, memo } from 'react'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { 
   Dialog, 
   DialogContent, 
@@ -12,7 +12,7 @@ import {
   DialogTitle, 
   DialogDescription 
 } from '@/components/ui/dialog'
-import { Layers, CheckCircle2, Calendar, Tag, Info, ExternalLink } from 'lucide-react'
+import { Layers, CheckCircle2, Calendar, Tag, Info } from 'lucide-react'
 
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
@@ -46,7 +46,7 @@ const historyData: HistoryColumn[] = [
         type: 'Story',
         title: '고려대학교 세종캠퍼스',
         subtitle: '전자및정보공학과 (2019.03 ~ 2025.02)',
-        logo: '/NaldonStudy/assets/history/korea-univ-1-removebg.png',
+        logo: '/assets/history/korea-univ-1-removebg.png',
         content: '전자공학 및 컴퓨터 공학 전공을 통해 하드웨어와 소프트웨어의 통합적 엔지니어링 기반 구축',
         details: [
           '전공 평점: 4.5/4.5 (우수한 학업 성취도)',
@@ -77,7 +77,7 @@ const historyData: HistoryColumn[] = [
         type: 'Task',
         title: '고려대학교 AIVS 연구실 학부연구생',
         subtitle: '인공지능 비전시스템 연구실 (2024.01 ~ 2024.08)',
-        logo: '/NaldonStudy/assets/history/korea-univ-1-removebg.png',
+        logo: '/assets/history/korea-univ-1-removebg.png',
         tags: ['AI', 'ComputerVision', 'Python'],
         content: '인공지능 및 컴퓨터 비전 시스템 연구 실무 경험',
         details: [
@@ -113,7 +113,7 @@ const historyData: HistoryColumn[] = [
         type: 'Story',
         title: '삼성청년 SW-AI 아카데미 13기 \nJAVA트랙 수료',
         subtitle: '우수 수료 (2025.01 ~ 2025.12)',
-        logo: '/NaldonStudy/assets/history/ssafy-blue.jpg',
+        logo: '/assets/history/ssafy-blue.jpg',
         content: '백엔드 및 인프라 심화 역량을 갖춘 개발자로 성장.',
         details: [
           '공통/특화 프로젝트 팀장 및 백엔드 파트장 역임',
@@ -136,7 +136,7 @@ const historyData: HistoryColumn[] = [
         type: 'Story',
         title: '삼성청년 SW-AI 아카데미 14기 \n실습코치',
         subtitle: 'SW Practice Coach (2026.01 ~ 현재)',
-        logo: '/NaldonStudy/assets/history/ssafy-blue.jpg',
+        logo: '/assets/history/ssafy-blue.jpg',
         content: '교육생 대상 프로젝트 아키텍처 설계 멘토링 및 코드 리뷰 진행.',
         details: [
           '교육생들의 기술적 문제 해결(Troubleshooting) 지원 및 가이드',
@@ -168,6 +168,73 @@ const getTypeIcon = (type: 'Story' | 'Task') => {
   return <CheckCircle2 className="w-3 h-3 text-blue-400" />
 }
 
+const KanbanCard = memo(({ card, onClick }: { card: HistoryCard; onClick: () => void }) => {
+  return (
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+      onClick={onClick}
+      className="cursor-pointer"
+    >
+      <Card className={`border-border/60 shadow-sm hover:shadow-md transition-all bg-card/95 relative overflow-hidden ${card.type === 'Story' ? 'border-l-4 border-l-green-500' : ''}`}>
+        <div className={`absolute top-0 right-0 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider border-l border-b rounded-bl-md ${getStatusColor(card.status)}`}>
+          {card.status}
+        </div>
+        <CardHeader className="p-4 pb-2">
+          <div className="flex items-start justify-between gap-4 mb-2">
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-2">
+                {getTypeIcon(card.type)}
+                <span className="text-[10px] font-mono text-muted-foreground">{card.id}</span>
+              </div>
+              <CardTitle className={`font-bold text-foreground leading-tight whitespace-pre-line ${card.type === 'Story' ? 'text-base' : 'text-sm'}`}>
+                {card.title}
+              </CardTitle>
+            </div>
+            {card.logo && (
+              <div className="w-10 h-10 shrink-0 rounded-lg overflow-hidden bg-white p-1 border border-border/50 flex items-center justify-center">
+                <Image 
+                  src={card.logo} 
+                  alt={card.title} 
+                  width={40} 
+                  height={40} 
+                  className="w-full h-full object-contain"
+                  loading="lazy"
+                />
+              </div>
+            )}
+          </div>
+          <CardDescription className="text-[11px] text-primary/80 font-medium">
+            {card.subtitle}
+          </CardDescription>
+        </CardHeader>
+        {card.content && (
+          <CardContent className="p-4 pt-0">
+            <p className="text-sm text-muted-foreground leading-relaxed whitespace-normal line-clamp-2">
+              {card.content}
+            </p>
+          </CardContent>
+        )}
+        {card.tags && card.tags.length > 0 && (
+          <div className="px-4 pb-4 flex flex-wrap gap-1.5">
+            {card.tags.slice(0, 3).map((tag) => (
+              <Badge
+                key={tag}
+                variant="secondary"
+                className="text-[10px] bg-primary/10 text-primary border-primary/20"
+              >
+                #{tag}
+              </Badge>
+            ))}
+          </div>
+        )}
+      </Card>
+    </motion.div>
+  )
+})
+
+KanbanCard.displayName = 'KanbanCard'
+
 export function HistoryKanbanSection() {
   const [selectedCard, setSelectedCard] = useState<HistoryCard | null>(null)
 
@@ -186,7 +253,7 @@ export function HistoryKanbanSection() {
               key={column.epic}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: colIndex * 0.1 }}
               className="flex flex-col gap-4 bg-secondary/20 rounded-xl p-6 border border-border/50 h-full"
             >
@@ -205,60 +272,11 @@ export function HistoryKanbanSection() {
 
               <div className="flex flex-col gap-4">
                 {column.cards.map((card) => (
-                  <motion.div
-                    key={card.id}
-                    whileHover={{ y: -4 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
-                    onClick={() => setSelectedCard(card)}
-                    className="cursor-pointer"
-                  >
-                    <Card className={`border-border/60 shadow-sm hover:shadow-md transition-all bg-card/80 backdrop-blur-sm relative overflow-hidden ${card.type === 'Story' ? 'border-l-4 border-l-green-500' : ''}`}>
-                      <div className={`absolute top-0 right-0 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider border-l border-b rounded-bl-md ${getStatusColor(card.status)}`}>
-                        {card.status}
-                      </div>
-                      <CardHeader className="p-4 pb-2">
-                        <div className="flex items-start justify-between gap-4 mb-2">
-                          <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-2">
-                              {getTypeIcon(card.type)}
-                              <span className="text-[10px] font-mono text-muted-foreground">{card.id}</span>
-                            </div>
-                            <CardTitle className={`font-bold text-foreground leading-tight whitespace-pre-line ${card.type === 'Story' ? 'text-base' : 'text-sm'}`}>
-                              {card.title}
-                            </CardTitle>
-                          </div>
-                          {card.logo && (
-                            <div className="w-10 h-10 shrink-0 rounded-lg overflow-hidden bg-white p-1 border border-border/50 flex items-center justify-center">
-                              <img src={card.logo} alt={card.title} className="w-full h-full object-contain" />
-                            </div>
-                          )}
-                        </div>
-                        <CardDescription className="text-[11px] text-primary/80 font-medium">
-                          {card.subtitle}
-                        </CardDescription>
-                      </CardHeader>
-                      {card.content && (
-                        <CardContent className="p-4 pt-0">
-                          <p className="text-sm text-muted-foreground leading-relaxed whitespace-normal line-clamp-2">
-                            {card.content}
-                          </p>
-                        </CardContent>
-                      )}
-                      {card.tags && card.tags.length > 0 && (
-                        <div className="px-4 pb-4 flex flex-wrap gap-1.5">
-                          {card.tags.slice(0, 3).map((tag) => (
-                            <Badge
-                              key={tag}
-                              variant="secondary"
-                              className="text-[10px] bg-primary/10 text-primary border-primary/20"
-                            >
-                              #{tag}
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
-                    </Card>
-                  </motion.div>
+                  <KanbanCard 
+                    key={card.id} 
+                    card={card} 
+                    onClick={() => setSelectedCard(card)} 
+                  />
                 ))}
               </div>
             </motion.div>
@@ -293,7 +311,13 @@ export function HistoryKanbanSection() {
                   </DialogHeader>
                   {selectedCard.logo && (
                     <div className="w-16 h-16 shrink-0 rounded-xl overflow-hidden bg-white p-2 border border-border shadow-sm flex items-center justify-center">
-                      <img src={selectedCard.logo} alt={selectedCard.title} className="w-full h-full object-contain" />
+                      <Image 
+                        src={selectedCard.logo} 
+                        alt={selectedCard.title} 
+                        width={64} 
+                        height={64} 
+                        className="w-full h-full object-contain"
+                      />
                     </div>
                   )}
                 </div>
