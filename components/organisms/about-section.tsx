@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge'
 
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
+import { withBasePath } from '@/lib/utils'
 
 interface AboutInfo {
   name: string
@@ -116,7 +117,7 @@ export function AboutSection() {
                       className="w-full h-full relative"
                     >
                       <Image
-                        src={aboutInfo.profileImages[currentImageIndex]}
+                        src={withBasePath(aboutInfo.profileImages[currentImageIndex])}
                         alt={`${aboutInfo.name} 프로필 ${currentImageIndex + 1}`}
                         fill
                         className="object-cover"
@@ -227,4 +228,3 @@ export function AboutSection() {
       </SectionWrapper>
   )
 }
-

@@ -25,6 +25,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { withBasePath } from '@/lib/utils'
 
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
@@ -377,7 +378,7 @@ const ProjectCard = memo(({
         <div className="relative h-48 bg-gradient-to-br from-primary/20 to-accent/20 overflow-hidden">
           {project.thumbnail ? (
             <Image
-              src={project.thumbnail}
+              src={withBasePath(project.thumbnail)}
               alt={project.title}
               fill
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -505,7 +506,7 @@ function ProjectDetailModal({
         <div className="relative h-48 md:h-64 bg-gradient-to-br from-primary/10 to-accent/10">
           {project.thumbnail ? (
             <Image
-              src={project.thumbnail}
+              src={withBasePath(project.thumbnail)}
               alt={project.title}
               fill
               className="w-full h-full object-cover opacity-40 mix-blend-overlay"
@@ -575,14 +576,14 @@ function ProjectDetailModal({
                       {project.details.screenshots.map((src, i) => (
                         <div key={i} className="group relative aspect-video rounded-xl overflow-hidden border border-border bg-secondary/10">
                           <Image
-                            src={src}
+                            src={withBasePath(src)}
                             alt={`${project.title} screenshot ${i + 1}`}
                             fill
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <Button variant="secondary" size="sm" asChild>
-                              <a href={src} target="_blank" rel="noopener noreferrer">원본 보기</a>
+                              <a href={withBasePath(src)} target="_blank" rel="noopener noreferrer">원본 보기</a>
                             </Button>
                           </div>
                         </div>
@@ -757,7 +758,7 @@ function ProjectDetailModal({
                   </a>
                 </Button>
               )}
-              {project.links.demo && (
+              {project.links?.demo && (
                 <Button asChild size="lg" className="rounded-xl shadow-lg shadow-primary/20">
                   <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-5 h-5 mr-2" />

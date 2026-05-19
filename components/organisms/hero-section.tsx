@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { withBasePath } from '@/lib/utils'
 
 const fullText = '소통의 가치를 중요하게 생각하는\n개발자 김도훈입니다'
 
@@ -84,7 +85,7 @@ export function HeroSection() {
           <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/20 p-2 bg-background shadow-2xl">
             <div className="w-full h-full rounded-full overflow-hidden bg-secondary relative">
               <Image
-                src="/assets/profile/dohun-image.jpg"
+                src={withBasePath("/assets/profile/dohun-image.jpg")}
                 alt="김도훈 프로필"
                 fill
                 priority

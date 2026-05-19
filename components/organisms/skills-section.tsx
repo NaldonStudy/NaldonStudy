@@ -4,6 +4,7 @@ import { memo } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { withBasePath } from '@/lib/utils'
 
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
@@ -114,7 +115,7 @@ const SkillItem = memo(({ skill, index }: { skill: Skill; index: number }) => {
           {skill.icon && (
             <div className="w-8 h-8 flex items-center justify-center p-1 rounded-md bg-background border border-border group-hover:border-primary/50 transition-colors">
               <Image 
-                src={skill.icon} 
+                src={withBasePath(skill.icon)} 
                 alt={skill.name} 
                 width={32} 
                 height={32} 

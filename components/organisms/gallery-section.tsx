@@ -12,6 +12,7 @@ import {
   EmptyDescription,
   EmptyMedia,
 } from '@/components/ui/empty'
+import { withBasePath } from '@/lib/utils'
 
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
@@ -99,7 +100,7 @@ const GalleryCard = memo(({
               <>
                 {item.thumbnail && !imageError ? (
                   <Image
-                    src={item.thumbnail}
+                    src={withBasePath(item.thumbnail!)}
                     alt={item.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -120,7 +121,7 @@ const GalleryCard = memo(({
               <>
                 {!imageError ? (
                   <Image
-                    src={item.src}
+                    src={withBasePath(item.src)}
                     alt={item.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -189,7 +190,7 @@ const LightboxModal = memo(({ item, onClose }: { item: GalleryItem; onClose: () 
             <>
               {!imageError ? (
                 <Image
-                  src={item.src}
+                  src={withBasePath(item.src)}
                   alt={item.title}
                   fill
                   className="object-contain"
