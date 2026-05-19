@@ -58,7 +58,7 @@ const InfoItem = memo(({
       <div className="text-primary">{icon}</div>
       <div>
         <p className="text-xs text-muted-foreground">{label}</p>
-        <p className="text-sm font-medium text-foreground">{value}</p>
+        <p className="text-sm font-medium text-foreground break-words">{value}</p>
       </div>
     </div>
   )
@@ -166,7 +166,7 @@ export function AboutSection() {
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-y-6 gap-x-4 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 mb-8">
                   <InfoItem
                     icon={<Mail className="w-4 h-4" />}
                     label="Email"
@@ -188,26 +188,24 @@ export function AboutSection() {
                     label="Academic"
                     value={aboutInfo.birthYear}
                   />
-                  <div className="sm:col-span-2 grid sm:grid-cols-3 gap-4">
-                    <InfoItem
-                      icon={<Github className="w-4 h-4" />}
-                      label="GitHub"
-                      value={aboutInfo.github}
-                      href={`https://${aboutInfo.github}`}
-                    />
-                    <InfoItem
-                      icon={<Linkedin className="w-4 h-4" />}
-                      label="LinkedIn"
-                      value="Dohun Kim"
-                      href={`https://${aboutInfo.linkedin}`}
-                    />
-                    <InfoItem
-                      icon={<BookOpen className="w-4 h-4" />}
-                      label="Velog"
-                      value={aboutInfo.velog}
-                      href={`https://${aboutInfo.velog}`}
-                    />
-                  </div>
+                  <InfoItem
+                    icon={<Github className="w-4 h-4" />}
+                    label="GitHub"
+                    value={aboutInfo.github}
+                    href={`https://${aboutInfo.github}`}
+                  />
+                  <InfoItem
+                    icon={<Linkedin className="w-4 h-4" />}
+                    label="LinkedIn"
+                    value="Dohun Kim"
+                    href={`https://${aboutInfo.linkedin}`}
+                  />
+                  <InfoItem
+                    icon={<BookOpen className="w-4 h-4" />}
+                    label="Velog"
+                    value={aboutInfo.velog}
+                    href={`https://${aboutInfo.velog}`}
+                  />
                 </div>
 
                 <div className="pt-6 border-t border-border/50">

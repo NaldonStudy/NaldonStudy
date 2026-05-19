@@ -30,6 +30,11 @@ import { withBasePath } from '@/lib/utils'
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
 
+interface Screenshot {
+  src: string
+  description: string
+}
+
 interface Project {
   id: string
   title: string
@@ -57,7 +62,7 @@ interface Project {
       improvements: string[]
       lessonsLearned: string[]
     }
-    screenshots?: string[]
+    screenshots?: Screenshot[]
   }
 }
 
@@ -129,13 +134,13 @@ const projectsData: Project[] = [
         ],
       },
       screenshots: [
-        '/assets/projects/nodap/landing.svg',
-        '/assets/projects/nodap/album.svg',
-        '/assets/projects/nodap/inside-album.svg',
-        '/assets/projects/nodap/create-album.svg',
-        '/assets/projects/nodap/create-cover.svg',
-        '/assets/projects/nodap/create-category.svg',
-        '/assets/projects/nodap/add-song.svg',
+        { src: '/assets/projects/nodap/landing.svg', description: '서비스 메인 랜딩 페이지' },
+        { src: '/assets/projects/nodap/album.svg', description: '사용자별 감성 앨범 리스트' },
+        { src: '/assets/projects/nodap/inside-album.svg', description: '앨범 상세 수록곡 뷰' },
+        { src: '/assets/projects/nodap/create-album.svg', description: '새로운 감성 앨범 생성' },
+        { src: '/assets/projects/nodap/create-cover.svg', description: '앨범 커버 이미지 설정' },
+        { src: '/assets/projects/nodap/create-category.svg', description: '감성 카테고리 분류' },
+        { src: '/assets/projects/nodap/add-song.svg', description: '앨범 내 노래 추가 및 관리' },
       ],
     },
   },
@@ -160,6 +165,7 @@ const projectsData: Project[] = [
     links: {
       github: 'https://github.com/NaldonStudy/DollarInsight',
     },
+    thumbnail: '/assets/projects/dollarinsight/splash.svg',
     details: {
       fullDescription:
         '미국 주식을 처음 시작하는 사람들을 위한 가이드를 제공하고, 여러 페르소나의 AI 어시스턴트와 대화하며 투자 인사이트를 얻을 수 있는 서비스입니다. 백엔드 아키텍처 설계와 AI 스트리밍 브리지 구축을 담당했으며, 대용량 정형/비정형 데이터 처리를 위해 다중 데이터베이스 환경을 구축했습니다.',
@@ -208,6 +214,15 @@ const projectsData: Project[] = [
           '동료들에게 기술적 가이드를 제공하며 아키텍처 설계와 코드 품질 관리의 중요성을 깊이 체감',
         ],
       },
+      screenshots: [
+        { src: '/assets/projects/dollarinsight/splash.svg', description: '실시간 데이터 기반의 지능형 기업 분석 메인 화면' },
+        { src: '/assets/projects/dollarinsight/stock-chart.svg', description: '다양한 보조지표와 함께 제공되는 상세 주가 차트' },
+        { src: '/assets/projects/dollarinsight/chat-room.svg', description: '투자 전문가 페르소나 AI와의 실시간 상담 및 토론' },
+        { src: '/assets/projects/dollarinsight/prediction.svg', description: 'AI 모델을 활용한 향후 주가 변동성 예측 정보' },
+        { src: '/assets/projects/dollarinsight/news-detail.svg', description: '사용자 맞춤형 정밀 뉴스 큐레이션 및 상세 내용' },
+        { src: '/assets/projects/dollarinsight/persona-1.svg', description: '다양한 투자 성향을 가진 AI 페르소나 라인업' },
+        { src: '/assets/projects/dollarinsight/change-ai-friend.svg', description: '나의 투자 성향에 맞는 AI 어시스턴트 자유 설정' },
+      ],
     },
   },
   {
@@ -275,7 +290,7 @@ const projectsData: Project[] = [
       retrospective: {
         improvements: [
           '대량의 카드 내역 로딩 속도 개선을 위한 폴링 최적화 및 비동기 구성 고도화 필요',
-          '향후 게이트웨이, 서킷브레이커, 읽기/쓰기 DB 분리 등 물리 분리 환경 고려 필요',
+          '향후 게이트웨, 서킷브레이커, 읽기/쓰기 DB 분리 등 물리 분리 환경 고려 필요',
         ],
         lessonsLearned: [
           '금융 데이터 보안 아키텍처의 실제 설계 및 구현 경험 확보',
@@ -285,7 +300,7 @@ const projectsData: Project[] = [
         ],
       },
       screenshots: [
-        '/assets/projects/walletslot/system-architecture.png',
+        { src: '/assets/projects/walletslot/system-architecture.png', description: '서비스 시스템 아키텍처 구성도' },
       ],
     },
   },
@@ -351,6 +366,7 @@ const projectsData: Project[] = [
           'SFU와 MCU의 성능 차이를 지표로 직접 검증하며 시스템 아키텍처 결정이 성능에 미치는 영향을 깊이 이해함',
         ],
       },
+      screenshots: [],
     },
   },
 ]
@@ -572,20 +588,25 @@ function ProjectDetailModal({
                       <ImageIcon className="w-5 h-5 text-primary" />
                       프로젝트 스크린샷
                     </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {project.details.screenshots.map((src, i) => (
-                        <div key={i} className="group relative aspect-video rounded-xl overflow-hidden border border-border bg-secondary/10">
-                          <Image
-                            src={withBasePath(src)}
-                            alt={`${project.title} screenshot ${i + 1}`}
-                            fill
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <Button variant="secondary" size="sm" asChild>
-                              <a href={withBasePath(src)} target="_blank" rel="noopener noreferrer">원본 보기</a>
-                            </Button>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {project.details.screenshots.map((screenshot, i) => (
+                        <div key={i} className="group flex flex-col gap-3">
+                          <div className="relative aspect-video rounded-xl overflow-hidden border border-border bg-secondary/10">
+                            <Image
+                              src={withBasePath(screenshot.src)}
+                              alt={`${project.title} screenshot ${i + 1}`}
+                              fill
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <Button variant="secondary" size="sm" asChild>
+                                <a href={withBasePath(screenshot.src)} target="_blank" rel="noopener noreferrer">원본 보기</a>
+                              </Button>
+                            </div>
                           </div>
+                          <p className="text-sm text-muted-foreground px-1 leading-relaxed">
+                            {screenshot.description}
+                          </p>
                         </div>
                       ))}
                     </div>
