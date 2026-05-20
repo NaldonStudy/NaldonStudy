@@ -86,15 +86,18 @@ const projectsData: Project[] = [
       'Nginx',
     ],
     role: 'Backend / Infra',
+    links: {
+      github: 'https://github.com/SongDap/songdap_backend',
+    },
     thumbnail: '/assets/projects/nodap/landing.webp',
     details: {
       fullDescription:
-        '사용자의 현재 기분에 어울리는 노래를 추천하고 공유하며 소통하는 서비스입니다. PM 1명, FE 1명, BE 1명, INFRA+BE 1명으로 구성된 팀에서 백엔드 아키텍처 설계와 CI/CD 파이프라인 구축, 클라우드 인프라 운영을 담당했습니다. 도메인 주도 설계(DDD)를 지향하며, 데이터 무결성과 보안을 최우선으로 고려하여 개발했습니다.',
+        '사용자의 현재 기분에 어울리는 노래를 추천하고 공유하며 소통하는 서비스입니다. PM 1명, FE 1명, BE 1명, INFRA+BE 1명으로 구성된 팀에서 백엔드 아키텍처 설계와 CI/CD 파이프라인 구축, 클라우드 인프라 운영을 담당했습니다. 도메인 주도 설계(DDD)를 지향하며, 데이터 무결성과 보안을 최우선으로 고려하여 개발했습니다. 특히 크로스 오리진 환경에서의 안전한 쿠키 기반 인증 체계를 구축하는 데 집중했습니다.',
       features: [
-        'Spring Security + JWT 기반의 안전한 쿠키 인증 체계 구축',
+        'Spring Security + JWT 기반의 안전한 HttpOnly/Secure 쿠키 인증 체계 구축',
+        'SameSite=None 설정을 통한 크로스 오리진(CORS) 환경에서의 인증 유지 해결',
         'Flyway를 활용한 데이터베이스 스키마 버전 관리 및 마이그레이션 자동화',
         'GitHub Actions와 AWS CodeDeploy를 활용한 무중단 배포 환경 구축',
-        'Redis를 활용한 Refresh Token 관리 및 세션 보안 강화',
         'Nginx 리버스 프록시 설정을 통한 대용량 이미지 업로드 처리 최적화',
       ],
       challenges: [
@@ -411,6 +414,9 @@ const projectsData: Project[] = [
       'Node.js',
     ],
     role: 'Frontend Developer / UI Designer',
+    links: {
+      github: 'https://github.com/NaldonStudy/NaldonStudy',
+    },
     thumbnail: '/assets/projects/portfolio/portfolio-intro.webp',
     details: {
       fullDescription:
@@ -592,7 +598,7 @@ function ProjectDetailModal({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
         showCloseButton={false}
-        className="max-w-4xl w-full p-0 overflow-hidden border-border bg-card shadow-2xl rounded-2xl gap-0 max-h-[90vh] overflow-y-auto"
+        className="sm:max-w-7xl w-full p-0 overflow-hidden border-border bg-card shadow-2xl rounded-2xl gap-0 max-h-[90vh] overflow-y-auto"
       >
         <DialogTitle className="sr-only">{project.title} 상세정보</DialogTitle>
         <button
@@ -602,7 +608,7 @@ function ProjectDetailModal({
           <X className="w-5 h-5" />
         </button>
 
-        <div className="relative h-48 md:h-64 bg-gradient-to-br from-primary/10 to-accent/10">
+        <div className="relative h-48 md:h-56 bg-gradient-to-br from-primary/10 to-accent/10">
           {project.thumbnail ? (
             <Image
               src={withBasePath(project.thumbnail)}
@@ -671,17 +677,18 @@ function ProjectDetailModal({
                       <ImageIcon className="w-5 h-5 text-primary" />
                       프로젝트 스크린샷
                     </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                       {project.details.screenshots.map((screenshot, i) => (
                         <div key={i} className="group flex flex-col gap-3">
-                          <div className="relative aspect-video rounded-xl overflow-hidden border border-border bg-secondary/10">
+                          <div className="relative aspect-[4/5] rounded-xl overflow-hidden border border-border bg-secondary/10">
                             <Image
                               src={withBasePath(screenshot.src)}
                               alt={`${project.title} screenshot ${i + 1}`}
                               fill
-                              priority={i < 2}
-                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+                              priority={i < 3}
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 will-change-transform transform-gpu"
+                              style={{ objectPosition: 'top' }}
                             />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                               <Button variant="secondary" size="sm" asChild>
