@@ -2,7 +2,7 @@
 
 import { useState, memo } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { 
   X, 
   ExternalLink, 
@@ -25,6 +25,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { withBasePath } from '@/lib/utils'
 
 import { SectionHeader } from '@/components/atoms/section-header'
@@ -576,29 +577,24 @@ ProjectCard.displayName = 'ProjectCard'
 
 function ProjectDetailModal({
   project,
+  isOpen,
   onClose,
 }: {
   project: Project
+  isOpen: boolean
   onClose: () => void
 }) {
   const [activeTab, setActiveTab] = useState('overview')
 
+  if (!project) return null
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-background/80 backdrop-blur-sm overflow-y-auto transform-gpu will-change-opacity"
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 50, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 50, scale: 0.95 }}
-        transition={{ duration: 0.3 }}
-        className="relative w-full max-w-4xl my-8 bg-card border border-border rounded-2xl shadow-2xl overflow-hidden transform-gpu will-change-transform"
-        onClick={(e) => e.stopPropagation()}
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent
+        showCloseButton={false}
+        className="max-w-4xl w-full p-0 overflow-hidden border-border bg-card shadow-2xl rounded-2xl gap-0 max-h-[90vh] overflow-y-auto"
       >
+        <DialogTitle className="sr-only">{project.title} 상세정보</DialogTitle>
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-50 p-2 rounded-full bg-background/80 hover:bg-background text-foreground transition-colors border border-border shadow-sm"
@@ -885,8 +881,8 @@ function ProjectDetailModal({
             </div>
           )}
         </div>
-      </motion.div>
-    </motion.div>
+      </DialogContent>
+    </Dialog>
   )
 }
 
@@ -908,14 +904,11 @@ export function ProjectsSection() {
           ))}
         </div>
 
-      <AnimatePresence>
-        {selectedProject && (
-          <ProjectDetailModal
-            project={selectedProject}
-            onClose={() => setSelectedProject(null)}
-          />
-        )}
-      </AnimatePresence>
+      <ProjectDetailModal
+        project={selectedProject!}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </SectionWrapper>
   )
 }

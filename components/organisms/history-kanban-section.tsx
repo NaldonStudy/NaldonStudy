@@ -47,7 +47,7 @@ const historyData: HistoryColumn[] = [
         type: 'Story',
         title: '고려대학교 세종캠퍼스',
         subtitle: '전자및정보공학과 (2019.03 ~ 2025.02)',
-        logo: '/NaldonStudy/assets/history/korea-univ-1-removebg.png',
+        logo: '/assets/history/korea-univ-1-removebg.png',
         content: '전자공학 전공을 통해 하드웨어와 소프트웨어의 통합적 엔지니어링 기반 구축',
         details: [
           'HW 뿐만 아니라 AI, 컴퓨터 아키텍처 등 SW 수업 수강',
@@ -78,7 +78,7 @@ const historyData: HistoryColumn[] = [
         type: 'Task',
         title: '고려대학교 AIVS 연구실 학부연구생',
         subtitle: '인공지능 비전시스템 연구실 (2024.01 ~ 2024.08)',
-        logo: '/NaldonStudy/assets/history/korea-univ-1-removebg.png',
+        logo: '/assets/history/korea-univ-1-removebg.png',
         tags: ['AI', 'ComputerVision', 'PyTorch'],
         content: '인공지능 및 컴퓨터 비전 시스템 연구 실무 경험',
         details: [
@@ -116,7 +116,7 @@ const historyData: HistoryColumn[] = [
         type: 'Story',
         title: '삼성청년 SW-AI 아카데미 13기 \nJAVA트랙 수료',
         subtitle: '우수 수료 (2025.01 ~ 2025.12)',
-        logo: '/NaldonStudy/assets/history/ssafy-blue.jpg',
+        logo: '/assets/history/ssafy-blue.jpg',
         content: '백엔드 및 인프라 심화 역량을 갖춘 개발자로 성장 및 커뮤니케이션(협업) 능력 향상.',
         details: [
           'SSAFY 공통 프로젝트 및 특화 프로젝트 연속 우수상 수상',
@@ -139,7 +139,7 @@ const historyData: HistoryColumn[] = [
         type: 'Story',
         title: '삼성청년 SW-AI 아카데미 14기 \n실습코치',
         subtitle: 'SW Practice Coach (2026.01 ~ 현재)',
-        logo: '/NaldonStudy/assets/history/ssafy-blue.jpg',
+        logo: '/assets/history/ssafy-blue.jpg',
         content: '교육생 대상 프로젝트 아키텍처 설계 멘토링 및 코드 리뷰 진행.',
         details: [
           '교육생들의 기술적 문제 해결(Troubleshooting) 지원 및 가이드',
