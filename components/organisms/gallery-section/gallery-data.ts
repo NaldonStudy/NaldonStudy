@@ -29,14 +29,14 @@ export const galleryData: GalleryItem[] = [
     type: 'image',
     title: '데일리 콘텐츠: 기술 발표 #1',
     description: 'SSAFY 교육생들을 대상으로 동기/비동기, 블로킹/논블로킹 개념에 대해 발표',
-    src: '/assets/gallery/SSAFY 데일리컨텐츠 1번.svg'
+    src: '/assets/gallery/SSAFY 데일리컨텐츠 1번.png'
   },
   {
     id: 'ssafy-daily-2',
     type: 'image',
     title: '데일리 콘텐츠: 기술 발표 #2',
     description: '복잡한 CS 지식을 동료들에게 쉽게 전달하기 위한 데일리 콘텐츠 세션',
-    src: '/assets/gallery/SSAFY 데일리컨텐츠 2번.svg'
+    src: '/assets/gallery/SSAFY 데일리컨텐츠 2번.png'
   },
   {
     id: 'ssafy-meetup-1',
