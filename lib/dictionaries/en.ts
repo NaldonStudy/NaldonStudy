@@ -1,0 +1,158 @@
+import { Dictionary } from './types';
+
+export const en: Dictionary = {
+  common: {
+    themeChange: 'Change Theme',
+    loading: 'Loading...',
+  },
+  nav: {
+    about: 'About',
+    history: 'History',
+    skills: 'Skills',
+    projects: 'Projects',
+    gallery: 'Gallery',
+    contact: 'Contact',
+    github: 'GitHub',
+    linkedin: 'LinkedIn',
+    blog: 'Blog',
+  },
+  hero: {
+    typingSequence: [
+      'Value of Communication',
+      'Value of Communica',
+      'Value of Comm',
+      'Value of ',
+      'Value of ',
+      'I am Dohun Kim,\na developer who values communication',
+    ],
+    profileBadge: 'Available for Work',
+    profileAlt: 'Dohun Kim Profile Image',
+    description1: 'I chose the science track because I liked mathematics and entered the Electronic Engineering department. I felt the charm of algorithms similar to mathematics beyond hardware in my major.',
+    description2: 'Since then, I fell in view of software and have accumulated various experiences to become a developer, from the metaverse society and AI lab to Samsung Software Academy for Youth (SSAFY).',
+    motto: '"A developer who is easy to communicate and work with"',
+    mottoSub: 'I will provide reliable code to colleagues and the best usability to users.',
+    viewProfile: 'View Profile',
+    viewProjects: 'View Projects',
+  },
+  about: {
+    title: 'About Me',
+    subtitle: 'A developer who constantly learns and communicates',
+    name: 'Dohun Kim',
+    profileAlt: 'Dohun Kim Profile Slider Image',
+    location: 'Location',
+    locationValue: 'Gyeonggi-do, South Korea',
+    education: 'Education',
+    educationValue: 'Korea University (Sejong)',
+    academic: 'Academic',
+    academicValue: 'Electronic and Information Engineering (Graduated 2025)',
+    email: 'Email',
+    github: 'GitHub',
+    linkedin: 'LinkedIn',
+    velog: 'Velog',
+    coreKeywords: 'Core Keywords',
+    keywords: ['Communicative', 'Fast Learner', 'Problem Solver', 'Responsible', 'Continuous Growth'],
+  },
+  history: {
+    title: 'History',
+    subtitle: 'Journey for Growth',
+    done: 'Done',
+    inProgress: 'In Progress',
+    todo: 'To Do',
+  },
+  skills: {
+    title: 'Skills',
+    subtitle: 'Technical Stack',
+    levels: {
+      1: 'Low: Basic understanding & learning',
+      2: 'Mid: Project application & implementation',
+      3: 'High: Core design & production operation',
+    },
+    categories: [
+      {
+        category: 'Core',
+        skills: [
+          { name: 'Java', level: 3, description: 'Design and implement core domain logic and highly maintainable backend code based on OOP', icon: '/assets/skills/core/java.svg' },
+          { name: 'Spring', level: 3, description: 'Apply REST API design and layer structure standardization, build security authentication system using Spring Security and JWT', icon: '/assets/skills/core/spring.svg' },
+          { name: 'MySQL', level: 3, description: 'Operate stable migration environment through schema design and database configuration management using Flyway', icon: '/assets/skills/core/mysql.svg' },
+        ],
+      },
+      {
+        category: 'Experienced',
+        skills: [
+          { name: 'Python', level: 3, description: 'Design and implement large-scale data processing and server/AI core logic based on data processing expertise', icon: '/assets/skills/experienced/python.svg' },
+          { name: 'PyTorch', level: 2, description: 'Configure model training/inference experiments and experience the process of performance comparison and improvement', icon: '/assets/skills/experienced/pytorch.svg' },
+          { name: 'MongoDB', level: 2, description: 'Experience in structure design and function implementation tailored to the characteristics of document-type data', icon: '/assets/skills/experienced/mongodb.svg' },
+          { name: 'Redis', level: 3, description: 'Simultaneously improve system performance and security through cache strategy establishment and Refresh Token storage utilization', icon: '/assets/skills/experienced/redis.svg' },
+          { name: 'FastAPI', level: 2, description: 'Configure high-performance APIs for AI feature serving and organically link with backend systems', icon: '/assets/skills/experienced/fastapi.svg' },
+        ],
+      },
+      {
+        category: 'Infra',
+        skills: [
+          { name: 'AWS', level: 2, description: 'Build CI/CD based on EC2, S3, CodeDeploy and perform security optimization using IAM Role', icon: '/assets/skills/infra/aws.svg' },
+          { name: 'Docker', level: 2, description: 'Standardize development and execution environments with containers to improve reproducibility and deployment convenience', icon: '/assets/skills/infra/docker.svg' },
+          { name: 'Nginx', level: 2, description: 'Stabilize high-volume request processing by optimizing server settings such as reverse proxy and client_max_body_size', icon: '/assets/skills/infra/nginx.svg' },
+        ],
+      },
+      {
+        category: 'Tools & Learning',
+        skills: [
+          { name: 'Jira', level: 3, description: 'Lead team development productivity and collaboration process through systematic issue-based task management', icon: '/assets/skills/tools/jira.svg' },
+          { name: 'Figma', level: 2, description: 'Understand planning/design outputs and interpret them as development requirements for collaboration', icon: '/assets/skills/tools/figma.svg' },
+          { name: 'TypeScript', level: 1, description: 'Learning basic syntax and application flow for frontend/fullstack expansion', icon: '/assets/skills/tools/typescript.svg' },
+          { name: 'Kubernetes', level: 1, description: 'Expanding deployment/operation capabilities while learning container orchestration concepts', icon: '/assets/skills/tools/kubernetes.svg' },
+        ],
+      },
+    ],
+  },
+  projects: {
+    title: 'Projects',
+    subtitle: 'Selected Works',
+    viewDetail: 'View Detail',
+    teamSize: 'members',
+    tabs: {
+      overview: 'Overview',
+      technical: 'Tech & Features',
+      problem: 'Challenges & Retro',
+      gallery: 'Gallery',
+    },
+    overview: {
+      intro: 'Project Introduction',
+      goals: 'Project Goals',
+      team: 'Team Composition',
+      teamSubtitle: 'Team Members',
+    },
+    technical: {
+      stack: 'Tech Stack',
+      features: 'Key Features',
+    },
+    problem: {
+      challenges: 'Challenges & Solutions',
+      retrospective: 'Retrospective',
+      improvements: 'Improvements',
+      lessons: 'Lessons Learned',
+    },
+    gallery: {
+      screenshots: 'Project Screenshots',
+      viewOriginal: 'View Original',
+    },
+  },
+  gallery: {
+    title: 'Gallery',
+    subtitle: 'Activity Records',
+    youtubeView: 'View on YouTube',
+    emptyTitle: 'Coming Soon',
+    emptyDescription: 'More activity photos will be updated soon.',
+  },
+  contact: {
+    title: 'Contact',
+    subtitle: 'Get in Touch',
+    motto: 'Let\'s grow together',
+    description: 'Feel free to contact me for project collaboration, recruitment, or simple conversation.',
+    sendEmail: 'Send Email',
+  },
+  footer: {
+    rights: 'Dohun Kim. All rights reserved.',
+    backToTop: 'Back to Top',
+  },
+};

@@ -1,0 +1,158 @@
+import { Dictionary } from './types';
+
+export const ko: Dictionary = {
+  common: {
+    themeChange: '테마 변경',
+    loading: '로딩 중...',
+  },
+  nav: {
+    about: 'About',
+    history: 'History',
+    skills: 'Skills',
+    projects: 'Projects',
+    gallery: 'Gallery',
+    contact: 'Contact',
+    github: 'GitHub',
+    linkedin: 'LinkedIn',
+    blog: 'Blog',
+  },
+  hero: {
+    typingSequence: [
+      '소통의 같이',
+      '소통의 같ㅇ',
+      '소통의 같',
+      '소통의 가',
+      '소통의 ',
+      '소통의 가치를 중요하게 생각하는\n개발자 김도훈입니다',
+    ],
+    profileBadge: 'Available for Work',
+    profileAlt: '김도훈 프로필 이미지',
+    description1: '수학을 좋아하여 이과를 선택했고, 전자과에 진학했습니다. 전자공학 전공에서 하드웨어를 넘어 수학과 유사한 알고리즘의 매력을 느꼈습니다.',
+    description2: '이후 소프트웨어의 매력에 빠지게 되었고, 메타버스 학회와 AI 연구실을 거쳐 삼성 청년 SW·AI 아카데미(SSAFY)까지 개발자가 되기 위해 다양한 경험을 쌓아왔습니다.',
+    motto: '"소통하기 편하고, 함께 일하고 싶은 개발자"',
+    mottoSub: '동료들에게는 신뢰할 수 있는 코드를, 사용자에게는 최상의 사용성을 제공하겠습니다.',
+    viewProfile: '프로필 상세 보기',
+    viewProjects: '프로젝트 결과물',
+  },
+  about: {
+    title: 'About Me',
+    subtitle: '끊임없이 배우고 소통하는 개발자입니다',
+    name: '김도훈',
+    profileAlt: '김도훈 프로필 슬라이더 이미지',
+    location: 'Location',
+    locationValue: '대한민국 경기도',
+    education: 'Education',
+    educationValue: '고려대학교 세종캠퍼스',
+    academic: 'Academic',
+    academicValue: '전자및정보공학과 (2025년 졸업)',
+    email: 'Email',
+    github: 'GitHub',
+    linkedin: 'LinkedIn',
+    velog: 'Velog',
+    coreKeywords: '핵심 키워드',
+    keywords: ['소통형 개발자', '빠른 적응력', '문제 해결 중심', '책임감 있는', '지속적 성장'],
+  },
+  history: {
+    title: 'History',
+    subtitle: '성장을 위한 여정',
+    done: '완료',
+    inProgress: '진행 중',
+    todo: '예정',
+  },
+  skills: {
+    title: 'Skills',
+    subtitle: '보유 기술 스택',
+    levels: {
+      1: '하: 기본 이해 및 학습',
+      2: '중: 프로젝트 활용 및 구현',
+      3: '상: 핵심 설계 및 실무 운영',
+    },
+    categories: [
+      {
+        category: 'Core (주력)',
+        skills: [
+          { name: 'Java', level: 3, description: '객체지향 기반으로 핵심 도메인 로직과 유지보수성 높은 백엔드 코드를 설계·구현', icon: '/assets/skills/core/java.svg' },
+          { name: 'Spring', level: 3, description: 'REST API 설계 및 계층 구조 표준화를 적용하며, Spring Security와 JWT를 활용한 보안 인증 체계 구축', icon: '/assets/skills/core/spring.svg' },
+          { name: 'MySQL', level: 3, description: '스키마 설계 및 Flyway를 활용한 데이터베이스 형상 관리를 통해 안정적인 마이그레이션 환경 운영', icon: '/assets/skills/core/mysql.svg' },
+        ],
+      },
+      {
+        category: 'Experienced (프로젝트 적용)',
+        skills: [
+          { name: 'Python', level: 3, description: '데이터 처리 전문성을 바탕으로 대규모 데이터 가공 및 서버/AI 핵심 로직 설계·구현', icon: '/assets/skills/experienced/python.svg' },
+          { name: 'PyTorch', level: 2, description: '모델 학습·추론 실험을 구성하고 성능 비교 및 개선 과정을 경험', icon: '/assets/skills/experienced/pytorch.svg' },
+          { name: 'MongoDB', level: 2, description: '문서형 데이터 특성에 맞춘 구조 설계와 기능 구현 경험', icon: '/assets/skills/experienced/mongodb.svg' },
+          { name: 'Redis', level: 3, description: '캐시 전략 수립 및 Refresh Token 저장소 활용을 통해 시스템 성능과 보안을 동시 개선', icon: '/assets/skills/experienced/redis.svg' },
+          { name: 'FastAPI', level: 2, description: 'AI 기능 서바이빙을 위한 고성능 API를 구성하고 백엔드 시스템과 유기적으로 연동', icon: '/assets/skills/experienced/fastapi.svg' },
+        ],
+      },
+      {
+        category: 'Infra (인프라 적용)',
+        skills: [
+          { name: 'AWS', level: 2, description: 'EC2, S3, CodeDeploy 기반의 CI/CD를 구축하고 IAM Role을 활용한 보안 최적화 수행', icon: '/assets/skills/infra/aws.svg' },
+          { name: 'Docker', level: 2, description: '개발·실행 환경을 컨테이너로 표준화해 재현성과 배포 편의성 향상', icon: '/assets/skills/infra/docker.svg' },
+          { name: 'Nginx', level: 2, description: '리버스 프록시 및 client_max_body_size 등 서버 설정을 최적화하여 대용량 요청 처리 안정화', icon: '/assets/skills/infra/nginx.svg' },
+        ],
+      },
+      {
+        category: 'Tools & Learning',
+        skills: [
+          { name: 'Jira', level: 3, description: '이슈 기반의 체계적인 작업 관리로 팀의 개발 생산성을 높이고 협업 프로세스 주도', icon: '/assets/skills/tools/jira.svg' },
+          { name: 'Figma', level: 2, description: '기획/디자인 산출물을 이해하고 개발 요구사항으로 해석해 협업', icon: '/assets/skills/tools/figma.svg' },
+          { name: 'TypeScript', level: 1, description: '프론트/풀스택 확장을 위해 기본 문법과 활용 흐름을 학습 중', icon: '/assets/skills/tools/typescript.svg' },
+          { name: 'Kubernetes', level: 1, description: '컨테이너 오케스트레이션 개념을 학습하며 배포/운영 역량 확장 중', icon: '/assets/skills/tools/kubernetes.svg' },
+        ],
+      },
+    ],
+  },
+  projects: {
+    title: 'Projects',
+    subtitle: '진행한 프로젝트들',
+    viewDetail: '자세히 보기',
+    teamSize: '명',
+    tabs: {
+      overview: '개요',
+      technical: '기술 & 기능',
+      problem: '문제 해결 & 회고',
+      gallery: '갤러리',
+    },
+    overview: {
+      intro: '프로젝트 소개',
+      goals: '프로젝트 목표',
+      team: '팀 구성',
+      teamSubtitle: '프로젝트 참여 인원',
+    },
+    technical: {
+      stack: '사용 기술 스택',
+      features: '주요 구현 기능',
+    },
+    problem: {
+      challenges: '도전 과제 & 해결 방안',
+      retrospective: '회고 및 성장',
+      improvements: '아쉬운 점 & 개선 방안',
+      lessons: '기술적 배운 점',
+    },
+    gallery: {
+      screenshots: '프로젝트 스크린샷',
+      viewOriginal: '원본 보기',
+    },
+  },
+  gallery: {
+    title: 'Gallery',
+    subtitle: '다양한 활동 기록',
+    youtubeView: 'YouTube에서 보기',
+    emptyTitle: '활동 기록 준비 중',
+    emptyDescription: '더 많은 활동 사진들이 곧 업데이트될 예정입니다.',
+  },
+  contact: {
+    title: 'Contact',
+    subtitle: '언제든지 연락 주세요',
+    motto: '함께 성장하고 싶습니다',
+    description: '프로젝트 협업, 채용 문의, 또는 단순한 대화까지 편하게 연락해 주세요.',
+    sendEmail: '이메일 보내기',
+  },
+  footer: {
+    rights: '김도훈. All rights reserved.',
+    backToTop: 'Back to Top',
+  },
+};
