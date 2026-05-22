@@ -1,3 +1,5 @@
+import { Locale } from '@/lib/dictionaries/types'
+
 export interface Screenshot {
   src: string
   description: string
@@ -43,11 +45,10 @@ export interface Project {
   }
 }
 
-export const projectsData: Project[] = [
+// 언어와 무관한 공통 데이터
+const baseProjectsData: Omit<Project, 'title' | 'shortDescription' | 'award' | 'role' | 'details'>[] = [
   {
     id: 'answer-with-song',
-    title: '노래로 답해줘',
-    shortDescription: '당신의 기분을 사람들과 노래로 공유하는 감성 소통 플랫폼',
     period: '2025.12.15 - 2026.05.15',
     teamSize: 4,
     teamMembers: [
@@ -66,14 +67,127 @@ export const projectsData: Project[] = [
       'Flyway',
       'Nginx',
     ],
-    role: 'Backend / Infra',
     links: {
       github: 'https://github.com/SongDap/songdap_backend',
     },
     thumbnail: '/assets/projects/nodap/landing.webp',
+  },
+  {
+    id: 'dollar-insight',
+    period: '2025.10.10 - 2025.11.20',
+    teamSize: 6,
+    teamMembers: [
+      { role: 'Backend', count: 1, isMe: true },
+      { role: 'Frontend', count: 2 },
+      { role: 'Data', count: 1 },
+      { role: 'Infra', count: 1 },
+      { role: 'AI', count: 1 },
+    ],
+    techStack: [
+      'Java 21',
+      'Spring Boot 3.5.7',
+      'FastAPI',
+      'PostgreSQL 16',
+      'MongoDB',
+      'ChromaDB',
+      'Flyway',
+      'Docker',
+      'Flutter',
+    ],
+    links: {
+      github: 'https://github.com/NaldonStudy/DollarInsight',
+    },
+    thumbnail: '/assets/projects/dollarinsight/dollarinsight-intro.jpg',
+    thumbnailPosition: 'top',
+  },
+  {
+    id: 'wallet-slot',
+    period: '2025.08.25 - 2025.09.29',
+    teamSize: 6,
+    teamMembers: [
+      { role: 'Backend', count: 1, isMe: true },
+      { role: 'Frontend', count: 3 },
+      { role: 'Backend / Infra', count: 1 },
+      { role: 'Data', count: 1 },
+    ],
+    techStack: [
+      'Java 21',
+      'Spring Boot 3.5.5',
+      'Spring Security',
+      'AWS KMS',
+      'MySQL 8.0',
+      'OpenAI API',
+      'Naver CLOVA OCR',
+      'Firebase (FCM)',
+      'WebFlux',
+      'Redis',
+      'Docker',
+    ],
+    links: {
+      github: 'https://github.com/NaldonStudy/WalletSlot',
+    },
+    thumbnail: '/assets/projects/walletslot/walletslot-intro.jpg',
+    thumbnailPosition: 'top',
+  },
+  {
+    id: 'promise-now',
+    period: '2025.07.07 - 2025.08.18',
+    teamSize: 5,
+    teamMembers: [
+      { role: 'Team Lead / Backend', count: 1, isMe: true },
+      { role: 'Backend', count: 1 },
+      { role: 'Frontend', count: 2 },
+      { role: 'Backend / Infra', count: 1 },
+    ],
+    techStack: [
+      'Java 21',
+      'Spring Boot 3.5.3',
+      'MySQL 8.0',
+      'Redis 7.2',
+      'QueryDSL',
+      'WebSocket (STOMP)',
+      'Mediasoup (SFU)',
+      'Spring Security',
+      'Docker',
+    ],
+    links: {
+      github: 'https://github.com/NaldonStudy/PromiseNow',
+    },
+    thumbnail: '/assets/projects/promisenow/promisenow-intro.jpg',
+    thumbnailPosition: 'top',
+  },
+  {
+    id: 'personal-portfolio',
+    period: '2026.05.15 - 2026.05.20',
+    teamSize: 1,
+    teamMembers: [
+      { role: 'Frontend / Design', count: 1, isMe: true },
+    ],
+    techStack: [
+      'Next.js 16',
+      'React 19',
+      'TypeScript 5',
+      'Tailwind CSS 4',
+      'Zustand',
+      'sharp',
+      'Node.js',
+    ],
+    links: {
+      github: 'https://github.com/NaldonStudy/NaldonStudy',
+    },
+    thumbnail: '/assets/projects/portfolio/portfolio-intro.webp',
+  },
+]
+
+type ProjectTranslation = Pick<Project, 'title' | 'shortDescription' | 'award' | 'role' | 'details'>
+
+const koProjectTranslations: Record<string, ProjectTranslation> = {
+  'answer-with-song': {
+    title: '노래로 답해줘',
+    shortDescription: '당신의 기분을 사람들과 노래로 공유하는 감성 소통 플랫폼',
+    role: 'Backend / Infra',
     details: {
-      fullDescription:
-        '사용자의 현재 기분에 어울리는 노래를 추천하고 공유하며 소통하는 서비스입니다. PM 1명, FE 1명, BE 1명, INFRA+BE 1명으로 구성된 팀에서 백엔드 아키텍처 설계와 CI/CD 파이프라인 구축, 클라우드 인프라 운영을 담당했습니다. 도메인 주도 설계(DDD)를 지향하며, 데이터 무결성과 보안을 최우선으로 고려하여 개발했습니다. 특히 크로스 오리진 환경에서의 안전한 쿠키 기반 인증 체계를 구축하는 데 집중했습니다.',
+      fullDescription: '사용자의 현재 기분에 어울리는 노래를 추천하고 공유하며 소통하는 서비스입니다. PM 1명, FE 1명, BE 1명, INFRA+BE 1명으로 구성된 팀에서 백엔드 아키텍처 설계와 CI/CD 파이프라인 구축, 클라우드 인프라 운영을 담당했습니다. 도메인 주도 설계(DDD)를 지향하며, 데이터 무결성과 보안을 최우선으로 고려하여 개발했습니다. 특히 크로스 오리진 환경에서의 안전한 쿠키 기반 인증 체계를 구축하는 데 집중했습니다.',
       features: [
         'Spring Security + JWT 기반의 안전한 HttpOnly/Secure 쿠키 인증 체계 구축',
         'SameSite=None 설정을 통한 크로스 오리진(CORS) 환경에서의 인증 유지 해결',
@@ -83,22 +197,16 @@ export const projectsData: Project[] = [
       ],
       challenges: [
         {
-          problem:
-            '인프라 운영 중 하드코딩된 AWS Access Key 노출 위험 및 관리의 번거로움 발생',
-          solution:
-            'EC2 인스턴스에 IAM Role(Instance Profile)을 부여하고, DefaultCredentialsProvider 폴백 로직을 구현하여 소스코드 내 민감 정보 완전 제거 및 보안성 강화',
+          problem: '인프라 운영 중 하드코딩된 AWS Access Key 노출 위험 및 관리의 번거로움 발생',
+          solution: 'EC2 인스턴스에 IAM Role(Instance Profile)을 부여하고, DefaultCredentialsProvider 폴백 로직을 구현하여 소스코드 내 민감 정보 완전 제거 및 보안성 강화',
         },
         {
-          problem:
-            'jjwt 라이브러리 사용 중 보안 규격 미달(256-bit 미만) 시 시크릿 키 WeakKeyException 발생으로 인한 서버 기동 실패',
-          solution:
-            'openssl을 활용한 32바이트(256-bit) base64 시크릿 생성 자동화 및 안전한 환경 변수 주입 방식으로 교체하여 보안 수준 상향',
+          problem: 'jjwt 라이브러리 사용 중 보안 규격 미달(256-bit 미만) 시 시크릿 키 WeakKeyException 발생으로 인한 서버 기동 실패',
+          solution: 'openssl을 활용한 32바이트(256-bit) base64 시크릿 생성 자동화 및 안전한 환경 변수 주입 방식으로 교체하여 보안 수준 상향',
         },
         {
-          problem:
-            '프론트엔드에서 고해상도 이미지 업로드 시 Nginx 기본 제한(1MB)으로 인한 413 Request Entity Too Large 에러 발생',
-          solution:
-            'Nginx의 client_max_body_size 조정 및 Spring Boot multipart 설정 동기화를 통해 10MB 수준의 안정적인 파일 업로드 환경 구축',
+          problem: '프론트엔드에서 고해상도 이미지 업로드 시 Nginx 기본 제한(1MB)으로 인한 413 Request Entity Too Large 에러 발생',
+          solution: 'Nginx의 client_max_body_size 조정 및 Spring Boot multipart 설정 동기화를 통해 10MB 수준의 안정적인 파일 업로드 환경 구축',
         },
       ],
       goals: [
@@ -130,39 +238,12 @@ export const projectsData: Project[] = [
       ],
     },
   },
-  {
-    id: 'dollar-insight',
+  'dollar-insight': {
     title: 'Dollar Insight',
     shortDescription: 'AI와 함께 미국 주식을 스마트하게 / 삼성 청년 SWㆍAI 아카데미 자율 프로젝트',
-    period: '2025.10.10 - 2025.11.20',
-    teamSize: 6,
-    teamMembers: [
-      { role: 'Backend', count: 1, isMe: true },
-      { role: 'Frontend', count: 2 },
-      { role: 'Data', count: 1 },
-      { role: 'Infra', count: 1 },
-      { role: 'AI', count: 1 },
-    ],
-    techStack: [
-      'Java 21',
-      'Spring Boot 3.5.7',
-      'FastAPI',
-      'PostgreSQL 16',
-      'MongoDB',
-      'ChromaDB',
-      'Flyway',
-      'Docker',
-      'Flutter',
-    ],
     role: 'Backend',
-    links: {
-      github: 'https://github.com/NaldonStudy/DollarInsight',
-    },
-    thumbnail: '/assets/projects/dollarinsight/dollarinsight-intro.jpg',
-    thumbnailPosition: 'top',
     details: {
-      fullDescription:
-        '미국 주식을 처음 시작하는 사람들을 위한 가이드를 제공하고, 여러 페르소나의 AI 어시스턴트와 대화하며 투자 인사이트를 얻을 수 있는 서비스입니다. 삼성 청년 SWㆍAI 아카데미 자율 프로젝트로 진행되었으며, 백엔드 아키텍처 설계와 AI 스트리밍 브리지 구축을 담당했습니다. 대용량 정형/비정형 데이터 처리를 위해 다중 데이터베이스 환경을 구축했습니다.',
+      fullDescription: '미국 주식을 처음 시작하는 사람들을 위한 가이드를 제공하고, 여러 페르소나의 AI 어시스턴트와 대화하며 투자 인사이트를 얻을 수 있는 서비스입니다. 삼성 청년 SWㆍAI 아카데미 자율 프로젝트로 진행되었으며, 백엔드 아키텍처 설계와 AI 스트리밍 브리지 구축을 담당했습니다. 대용량 정형/비정형 데이터 처리를 위해 다중 데이터베이스 환경을 구축했습니다.',
       features: [
         'Flutter - Spring - FastAPI를 잇는 3계층 SSE(Server-Sent Events) 스트리밍 브리지 구축',
         '여러 페르소나의 AI(유명 투자자 등)와 실시간 그룹 채팅 및 토론 기능',
@@ -173,22 +254,16 @@ export const projectsData: Project[] = [
       ],
       challenges: [
         {
-          problem:
-            '초기 WebSocket 구현 시, 단방향 소통 위주의 AI 응답 흐름에서 불필요한 리소스(메모리, 스레드) 소모 및 보안 설정의 복잡성 발생',
-          solution:
-            'SSE(Server-Sent Events)로 전환하여 가벼운 단방향 스트리밍 구현. 재연결 및 유실 복구 내장 기능을 활용하고, HTTP 표준 보안 헤더 처리를 간소화함',
+          problem: '초기 WebSocket 구현 시, 단방향 소통 위주의 AI 응답 흐름에서 불필요한 리소스(메모리, 스레드) 소모 및 보안 설정의 복잡성 발생',
+          solution: 'SSE(Server-Sent Events)로 전환하여 가벼운 단방향 스트리밍 구현. 재연결 및 유실 복구 내장 기능을 활용하고, HTTP 표준 보안 헤더 처리를 간소화함',
         },
         {
-          problem:
-            'BFF 구조에서 FastAPI의 AI 응답을 Spring이 중계할 때, 메시지 저장 로직이 스트리밍 전송을 블로킹하여 지연 발생',
-          solution:
-            'WebClient(WebFlux)로 /stream을 구독하고 SseEmitter로 즉시 중계하는 브리지 구현. AI 메시지 저장 및 세션 갱신을 CompletableFuture로 비동기 처리하여 스트림 전송 성능 최적화',
+          problem: 'BFF 구조에서 FastAPI의 AI 응답을 Spring이 중계할 때, 메시지 저장 로직이 스트리밍 전송을 블로킹하여 지연 발생',
+          solution: 'WebClient(WebFlux)로 /stream을 구독하고 SseEmitter로 즉시 중계하는 브리지 구현. AI 메시지 저장 및 세션 갱신을 CompletableFuture로 비동기 처리하여 스트림 전송 성능 최적화',
         },
         {
-          problem:
-            '주가 정보(정형)와 채팅/뉴스(비정형) 데이터를 단일 DB에서 처리 시 성능 및 확장성 한계',
-          solution:
-            'PostgreSQL(사용자/종목)과 MongoDB(채팅/뉴스)를 분리하여 데이터 특성에 최적화된 저장소 아키텍처 설계 및 처리 속도 향상',
+          problem: '주가 정보(정형)와 채팅/뉴스(비정형) 데이터를 단일 DB에서 처리 시 성능 및 확장성 한계',
+          solution: 'PostgreSQL(사용자/종목)과 MongoDB(채팅/뉴스)를 분리하여 데이터 특성에 최적화된 저장소 아키텍처 설계 및 처리 속도 향상',
         },
       ],
       goals: [
@@ -219,41 +294,13 @@ export const projectsData: Project[] = [
       ],
     },
   },
-  {
-    id: 'wallet-slot',
+  'wallet-slot': {
     title: 'Wallet Slot',
     shortDescription: '빈틈 Zero 금융생활을 위한 스마트 자산 관리 서비스 / 삼성 청년 SWㆍAI 아카데미 특화 프로젝트',
     award: '삼성 청년 SWㆍAI 아카데미 특화 프로젝트 우수상',
-    period: '2025.08.25 - 2025.09.29',
-    teamSize: 6,
-    teamMembers: [
-      { role: 'Backend', count: 1, isMe: true },
-      { role: 'Frontend', count: 3 },
-      { role: 'Backend / Infra', count: 1 },
-      { role: 'Data', count: 1 },
-    ],
-    techStack: [
-      'Java 21',
-      'Spring Boot 3.5.5',
-      'Spring Security',
-      'AWS KMS',
-      'MySQL 8.0',
-      'OpenAI API',
-      'Naver CLOVA OCR',
-      'Firebase (FCM)',
-      'WebFlux',
-      'Redis',
-      'Docker',
-    ],
     role: 'Backend',
-    links: {
-      github: 'https://github.com/NaldonStudy/WalletSlot',
-    },
-    thumbnail: '/assets/projects/walletslot/walletslot-intro.jpg',
-    thumbnailPosition: 'top',
     details: {
-      fullDescription:
-        '본인의 소비 지출에 대해 무뎌져 있는 사람들을 위해 자동 및 수동으로 슬롯(계좌 분할)을 관리해주는 자산 관리 플랫폼입니다. 삼성 청년 SWㆍAI 아카데미 특화 프로젝트로 진행되었으며, 백엔드 1, 프론트 3, 백엔드+인프라 1, 데이터 1 등 총 6인의 팀 프로젝트로 진행되었습니다. 백엔드 개발자로서 전체 아키텍처와 보안 설계를 담당했습니다. SSAFY 내부 금융망과 연동하여 실제 금융 환경과 유사한 경험을 제공하며, AI 기반 소비 리포트를 통해 계획적인 소비 습관 형성을 돕습니다.',
+      fullDescription: '본인의 소비 지출에 대해 무뎌져 있는 사람들을 위해 자동 및 수동으로 슬롯(계좌 분할)을 관리해주는 자산 관리 플랫폼입니다. 삼성 청년 SWㆍAI 아카데미 특화 프로젝트로 진행되었으며, 백엔드 1, 프론트 3, 백엔드+인프라 1, 데이터 1 등 총 6인의 팀 프로젝트로 진행되었습니다. 백엔드 개발자로서 전체 아키텍처와 보안 설계를 담당했습니다. SSAFY 내부 금융망과 연동하여 실제 금융 환경과 유사한 경험을 제공하며, AI 기반 소비 리포트를 통해 계획적인 소비 습관 형성을 돕습니다.',
       features: [
         '마이데이터 기반 계좌 연동 및 실시간 거래 내역 동기화 (SSAFY 금융망 API)',
         'AWS KMS 및 AES-256을 활용한 계좌 정보 암화화 및 PIN/OTP 기반의 다중 보안 체계 구축',
@@ -265,22 +312,16 @@ export const projectsData: Project[] = [
       ],
       challenges: [
         {
-          problem:
-            '단일 앱/DB 환경에서 실제 금융사의 물리적 계층 분리를 구현하기 어려운 한계',
-          solution:
-            '계정계 수준 보호를 위해 논리적 통제 적용 (AES 암호화, JWT 디바이스 바인딩, PIN pepper+BCrypt, KMS 기반 키 관리, OTP HMAC, Refresh 토큰 JTI 관리)',
+          problem: '단일 앱/DB 환경에서 실제 금융사의 물리적 계층 분리를 구현하기 어려운 한계',
+          solution: '계정계 수준 보호를 위해 논리적 통제 적용 (AES 암호화, JWT 디바이스 바인딩, PIN pepper+BCrypt, KMS 기반 키 관리, OTP HMAC, Refresh 토큰 JTI 관리)',
         },
         {
-          problem:
-            '베타 버전 피드백에서 단순 금액 정보만으로는 사용자 행동 변화를 이끌어내기 부족하다는 지적',
-          solution:
-            '구간별 거래를 집계하여 과지출 횟수, 자주 쓰는 분야, 개선 방안 등을 제시하는 AI 소비 리포트 파이프라인 구축 (JSON 강제 파싱 및 재시도 로직으로 안정화)',
+          problem: '베타 버전 피드백에서 단순 금액 정보만으로는 사용자 행동 변화를 이끌어내기 부족하다는 지적',
+          solution: '구간별 거래를 집계하여 과지출 횟수, 자주 쓰는 분야, 개선 방안 등을 제시하는 AI 소비 리포트 파이프라인 구축 (JSON 강제 파싱 및 재시도 로직으로 안정화)',
         },
         {
-          problem:
-            '여러 계좌의 대규모 거래 내역 동기화 시 발생하는 성능 병목 및 API 호출 최적화 필요',
-          solution:
-            'WebClient를 활용한 비동기 병렬 API 호출과 배치 처리를 결합하여 동기화 속도 개선 및 효율적인 트랜잭션 관리 구현',
+          problem: '여러 계좌의 대규모 거래 내역 동기화 시 발생하는 성능 병목 및 API 호출 최적화 필요',
+          solution: 'WebClient를 활용한 비동기 병렬 API 호출과 배치 처리를 결합하여 동기화 속도 개선 및 효율적인 트랜잭션 관리 구현',
         },
       ],
       goals: [
@@ -314,36 +355,10 @@ export const projectsData: Project[] = [
       ],
     },
   },
-  {
-    id: 'promise-now',
+  'promise-now': {
     title: 'Promise Now',
     shortDescription: '약속부터 만남까지 한 화면에서 함께하는 즐거움, 실시간 약속 관리 플랫폼 / 삼성 청년 SWㆍAI 아카데미 공통 프로젝트',
-    award: '삼성 청년 SWㆍAI 아카데미 공통 프로젝트 우수상',
-    period: '2025.07.07 - 2025.08.18',
-    teamSize: 5,
-    teamMembers: [
-      { role: 'Team Lead / Backend', count: 1, description: '핵심 도메인 설계', isMe: true },
-      { role: 'Backend', count: 1 },
-      { role: 'Frontend', count: 2 },
-      { role: 'Backend / Infra', count: 1 },
-    ],
-    techStack: [
-      'Java 21',
-      'Spring Boot 3.5.3',
-      'MySQL 8.0',
-      'Redis 7.2',
-      'QueryDSL',
-      'WebSocket (STOMP)',
-      'Mediasoup (SFU)',
-      'Spring Security',
-      'Docker',
-    ],
     role: 'Team Lead / Backend',
-    links: {
-      github: 'https://github.com/NaldonStudy/PromiseNow',
-    },
-    thumbnail: '/assets/projects/promisenow/promisenow-intro.jpg',
-    thumbnailPosition: 'top',
     details: {
       fullDescription: '약속 시간 조율부터 실제 만남까지의 모든 과정을 하나의 service에서 관리할 수 있는 실시간 협업 플랫폼입니다. 삼성 청년 SWㆍAI 아카데미 공통 프로젝트로 진행되었으며, 백엔드 팀장으로서 실시간 위치 공유 리더보드, 비트마스크 기반 일정 조율 알고리즘, STOMP 기반 채팅 시스템 등 핵심 도메인 로직 설계를 주도했습니다. 특히 대규모 실시간 데이터 처리를 위해 Redis와 SFU 기반 WebRTC 아키텍처를 도입하여 성능을 최적화했습니다.',
       features: [
@@ -398,32 +413,12 @@ export const projectsData: Project[] = [
       ],
     },
   },
-  {
-    id: 'personal-portfolio',
+  'personal-portfolio': {
     title: '개인 포트폴리오 제작 & 웹 성능 극대화',
     shortDescription: 'Next.js 16과 Tailwind 4를 사용한 포트폴리오 구축 및 대용량 갤러리 이미지 성능 극대화',
-    period: '2026.05.15 - 2026.05.20',
-    teamSize: 1,
-    teamMembers: [
-      { role: 'Frontend / Design', count: 1, isMe: true },
-    ],
-    techStack: [
-      'Next.js 16',
-      'React 19',
-      'TypeScript 5',
-      'Tailwind CSS 4',
-      'Zustand',
-      'sharp',
-      'Node.js',
-    ],
     role: 'Frontend Developer / UI Designer',
-    links: {
-      github: 'https://github.com/NaldonStudy/NaldonStudy',
-    },
-    thumbnail: '/assets/projects/portfolio/portfolio-intro.webp',
     details: {
-      fullDescription:
-        '기존의 개인 포트폴리오 사이트를 React 19 및 Next.js 16 신규 스택으로 마이그레이션하고 GitHub Pages 정적 배포 환경에 맞추어 최적화했습니다. 초기 개발 이후 발생한 상세 팝업 오픈 시의 미세한 버벅임(Stuttering)을 해결하기 위해, 단순한 코드 수정을 넘어 프로젝트 전체의 아키텍처를 DDD/FSD 기반의 도메인 중심 구조로 전면 리팩토링했습니다. 또한 무거운 UI 요소에 지연 로딩을 적용하고, 이를 상시 감시하기 위한 커스텀 검증 툴을 직접 구축하여 기술적 완성도를 높였습니다.',
+      fullDescription: '기존의 개인 포트폴리오 사이트를 React 19 및 Next.js 16 신규 스택으로 마이그레이션하고 GitHub Pages 정적 배포 환경에 맞추어 최적화했습니다. 초기 개발 이후 발생한 상세 팝업 오픈 시의 미세한 버벅임(Stuttering)을 해결하기 위해, 단순한 코드 수정을 넘어 프로젝트 전체의 아키텍처를 DDD/FSD 기반의 도메인 중심 구조로 전면 리팩토링했습니다. 또한 무거운 UI 요소에 지연 로딩을 적용하고, 이를 상시 감시하기 위한 커스텀 검증 툴을 직접 구축하여 기술적 완성도를 높였습니다.',
       features: [
         'Next.js 16 App Router 기반 정적 페이지 빌드 및 GitHub Pages 배포 환경 구축 (output: export)',
         '도메인 중심 아키텍처(DDD/FSD) 도입을 통한 대규모 컴포넌트(Projects, History 등)의 관심사 분리 및 구조화',
@@ -434,16 +429,12 @@ export const projectsData: Project[] = [
       ],
       challenges: [
         {
-          problem:
-            '대용량 데이터(JSON)와 복잡한 UI 로직이 단일 파일에 밀집되어, 상세 정보 오픈 시 수천 개의 DOM 노드가 동시에 계산되며 발생하는 메인 스레드 병목 현상',
-          solution:
-            '컴포넌트 파편화 전략을 통해 데이터를 *-data.ts로 격리하고, UI를 기능 단위로 쪼개어 React.memo와 지연 로딩을 적용함으로써 렌더링 부하를 약 50% 이상 분산 및 제거',
+          problem: '대용량 데이터(JSON)와 복잡한 UI 로직이 단일 파일에 밀집되어, 상세 정보 오픈 시 수천 개의 DOM 노드가 동시에 계산되며 발생하는 메인 스레드 병목 현상',
+          solution: '컴포넌트 파편화 전략을 통해 데이터를 *-data.ts로 격리하고, UI를 기능 단위로 쪼개어 React.memo와 지연 로딩을 적용함으로써 렌더링 부하를 약 50% 이상 분산 및 제거',
         },
         {
-          problem:
-            '피그마 디자인 도구에서 고해상도로 빌드된 개당 4MB~11MB 수준의 복잡한 SVG 스크린샷 자원들이 브라우저 렌더링 엔진에 치명적인 블로킹 효과를 발생시킴',
-          solution:
-            'sharp를 사용한 일괄 압축 유틸리티를 구축하여 10MB 이상의 파일들을 10~20KB의 초경량 WebP 포맷으로 일괄 변환(평균 98% 용량 절감)하여 해결',
+          problem: '피그마 디자인 도구에서 고해상도로 빌드된 개당 4MB~11MB 수준의 복잡한 SVG 스크린샷 자원들이 브라우저 렌더링 엔진에 치명적인 블로킹 효과를 발생시킴',
+          solution: 'sharp를 사용한 일괄 압축 유틸리티를 구축하여 10MB 이상의 파일들을 10~20KB의 초경량 WebP 포맷으로 일괄 변환(평균 98% 용량 절감)하여 해결',
         },
       ],
       goals: [
@@ -459,9 +450,294 @@ export const projectsData: Project[] = [
         lessonsLearned: [
           '단순한 기능 구현보다 중요한 것은 사용자가 체감하는 "부드러움"이며, 이를 위해 아키텍처 수준에서의 구조적 설계가 필수적임을 체감',
           '성능 문제는 감이 아닌 수치와 분석(Diagnosis)을 통해 접근해야 함을 깨닫고, 이를 해결하기 위한 자동화 도구 제작의 가치를 이해함',
-          '비대해진 코드를 쪼개고 지연 로딩을 적용하는 과정에서 React의 렌더링 메커니즘과 번들 최적화에 대한 깊은 통찰 확보',
+          '비대해진 코드를 쪼개고 지연 로딩을 적용하는 과정에서 React의 렌더링 메커니즘과 번들 최적화에 대한 깊이 통찰 확보',
         ],
       },
     },
   },
-]
+}
+
+const enProjectTranslations: Record<string, ProjectTranslation> = {
+  'answer-with-song': {
+    title: 'Answer with Song',
+    shortDescription: 'Emotional communication platform to share your feelings through songs',
+    role: 'Backend / Infra',
+    details: {
+      fullDescription: 'A service that recommends and shares songs matching the user\'s current mood. In a team of 1 PM, 1 FE, 1 BE, and 1 Infra+BE, I was responsible for backend architecture design, CI/CD pipeline construction, and cloud infrastructure operation. I aimed for Domain-Driven Design (DDD) and developed with data integrity and security as top priorities. I particularly focused on building a secure cookie-based authentication system in a cross-origin environment.',
+      features: [
+        'Built a secure HttpOnly/Secure cookie authentication system based on Spring Security + JWT',
+        'Resolved authentication maintenance in cross-origin (CORS) environments through SameSite=None settings',
+        'Automated database schema version management and migration using Flyway',
+        'Established a non-disruptive deployment environment using GitHub Actions and AWS CodeDeploy',
+        'Optimized high-volume image upload processing through Nginx reverse proxy settings',
+      ],
+      challenges: [
+        {
+          problem: 'Risk of exposure and management hassle of hardcoded AWS Access Keys during infrastructure operation',
+          solution: 'Assigned IAM Role (Instance Profile) to EC2 instances and implemented DefaultCredentialsProvider fallback logic to completely remove sensitive information from source code and enhance security',
+        },
+        {
+          problem: 'Server startup failure due to WeakKeyException when secret key was below security standards (less than 256-bit) while using jjwt library',
+          solution: 'Automated 32-byte (256-bit) base64 secret generation using openssl and replaced with a secure environment variable injection method to raise security levels',
+        },
+        {
+          problem: '413 Request Entity Too Large error due to Nginx default limit (1MB) when uploading high-resolution images from frontend',
+          solution: 'Adjusted Nginx client_max_body_size and synchronized Spring Boot multipart settings to build a stable file upload environment at the 10MB level',
+        },
+      ],
+      goals: [
+        'Enhance emotional connection between users through music and secure stable communication channels',
+        'Ensure reliability of domain logic through test codes and build a sustainable architecture',
+        'Establish a cloud resource management system based on the Principle of Least Privilege (PoLP)',
+      ],
+      retrospective: {
+        improvements: [
+          'Review service termination due to AWS Free Tier expiration and migration to cost-effective alternative infrastructure (On-premise or other cloud)',
+          'Planned advancement of ELK stack or CloudWatch Logs for user behavior log analysis',
+          'Strengthen data pipeline asynchrony and caching strategies for recommendation engine performance improvement',
+        ],
+        lessonsLearned: [
+          'Learned the importance of infrastructure design and phased expansion strategies considering cost constraints such as Free Tier when operating cloud resources',
+          'Realized the danger of hardcoded credentials and deeply understood modern cloud security models based on IAM Roles',
+          'Confirmed the numerical impact of setting alignment between infrastructure (Nginx, AWS) and application (Spring) on user experience',
+          'Gained experience in efficiently resolving database synchronization issues during collaboration through DB version management with Flyway',
+        ],
+      },
+      screenshots: [
+        { src: '/assets/projects/nodap/landing.webp', description: 'Service main landing page' },
+        { src: '/assets/projects/nodap/album.webp', description: 'Emotional album list per user' },
+        { src: '/assets/projects/nodap/inside-album.webp', description: 'Album detail track list view' },
+        { src: '/assets/projects/nodap/create-album.webp', description: 'Create new emotional album' },
+        { src: '/assets/projects/nodap/create-cover.webp', description: 'Set album cover image' },
+        { src: '/assets/projects/nodap/create-category.webp', description: 'Emotional category classification' },
+        { src: '/assets/projects/nodap/add-song.webp', description: 'Add and manage songs in album' },
+      ],
+    },
+  },
+  'dollar-insight': {
+    title: 'Dollar Insight',
+    shortDescription: 'Smart U.S. stock investing with AI / SSAFY Autonomous Project',
+    role: 'Backend',
+    details: {
+      fullDescription: 'A service that provides guides for beginners in U.S. stocks and allows them to gain investment insights by talking with AI assistants of various personas. Conducted as a SSAFY autonomous project, I was responsible for backend architecture design and building the AI streaming bridge. I built a multi-database environment for processing large-scale structured/unstructured data.',
+      features: [
+        'Built a 3-tier SSE (Server-Sent Events) streaming bridge connecting Flutter - Spring - FastAPI',
+        'Real-time group chat and discussion functions with various AI personas (famous investors, etc.)',
+        'Efficient management of large-scale chat messages and news data using MongoDB',
+        'Personalized stock recommendation using similarity search based on ChromaDB (Vector DB)',
+        'Managed stable database migration using Flyway',
+        'Established easy login through Kakao/Google OAuth and JWT security system',
+      ],
+      challenges: [
+        {
+          problem: 'Unnecessary resource (memory, thread) consumption and complexity of security settings in initial WebSocket implementation focused on one-way AI response flow',
+          solution: 'Switched to SSE (Server-Sent Events) for lightweight one-way streaming. Utilized built-in reconnection and loss recovery functions, and simplified HTTP standard security header processing',
+        },
+        {
+          problem: 'Latency occurred when Spring relayed FastAPI\'s AI response in BFF structure, as message saving logic blocked streaming transmission',
+          solution: 'Implemented a bridge that subscribes to /stream with WebClient (WebFlux) and immediately relays with SseEmitter. Optimized stream transmission performance by asynchronously processing AI message saving and session update with CompletableFuture',
+        },
+        {
+          problem: 'Performance and scalability limitations when processing stock information (structured) and chat/news (unstructured) data in a single DB',
+          solution: 'Designed a storage architecture optimized for data characteristics by separating PostgreSQL (user/stock) and MongoDB (chat/news), and improved processing speed',
+        },
+      ],
+      goals: [
+        'Proposed an exemplary code structure applying DDD (Domain-Driven Design) to improve team members\' Java competencies',
+        'Ensured data integrity through test code-based stable development and avoiding Setter usage',
+        'Maximized team collaboration efficiency with detailed API documentation using Swagger',
+      ],
+      retrospective: {
+        improvements: [
+          'Reviewing logout invalidation strategy based on Redis Blacklist to strengthen security of stateless JWT-based authentication system',
+          'Introduced circuit breakers using Resilience4j to ensure stability of MSA structure and designed architecture to prevent cascading failure of AI services',
+          'Discovered boundary violation issue where domain service directly depends on infra layer when applying DDD structure, and architecture improvement is needed',
+        ],
+        lessonsLearned: [
+          'Experienced designing an efficient streaming data relay architecture combining SSE and asynchronous processing',
+          'Acquired data consistency management capabilities in Polyglot Persistence (PostgreSQL, MongoDB, ChromaDB) environment',
+          'Deeply felt the importance of architecture design and code quality management while providing technical guides to colleagues',
+        ],
+      },
+      screenshots: [
+        { src: '/assets/projects/dollarinsight/splash.webp', description: 'Intelligent corporate analysis main screen based on real-time data' },
+        { src: '/assets/projects/dollarinsight/stock-chart.webp', description: 'Detailed stock chart provided with various auxiliary indicators' },
+        { src: '/assets/projects/dollarinsight/chat-room.webp', description: 'Real-time consultation and discussion with investment expert persona AI' },
+        { src: '/assets/projects/dollarinsight/prediction.webp', description: 'Future stock price volatility prediction information using AI models' },
+        { src: '/assets/projects/dollarinsight/news-detail.webp', description: 'User-customized precision news curation and details' },
+        { src: '/assets/projects/dollarinsight/persona-1.webp', description: 'AI persona lineup with various investment styles' },
+        { src: '/assets/projects/dollarinsight/change-ai-friend.webp', description: 'Free setting of AI assistant matching my investment style' },
+      ],
+    },
+  },
+  'wallet-slot': {
+    title: 'Wallet Slot',
+    shortDescription: 'Smart asset management service for a gap-free financial life / SSAFY Specialized Project',
+    award: 'SSAFY Specialized Project Excellence Award',
+    role: 'Backend',
+    details: {
+      fullDescription: 'An asset management platform that manages slots (account division) automatically and manually for those who are indifferent to their consumption expenditures. Conducted as a SSAFY specialized project, it was a team project of 6 people: 1 BE, 3 FE, 1 BE+Infra, and 1 Data. As a backend developer, I was responsible for the overall architecture and security design. It provides an experience similar to an actual financial environment by interlocking with the SSAFY internal financial network, and helps form planned consumption habits through AI-based consumption reports.',
+      features: [
+        'MyData-based account linkage and real-time transaction history synchronization (SSAFY financial network API)',
+        'Built a multi-security system based on PIN/OTP and account information encryption using AWS KMS and AES-256',
+        'AI-based consumption pattern analysis and monthly consumption report automatic generation pipeline (OpenAI API)',
+        'Automatic household account book input and transaction classification function through receipt OCR recognition (Naver CLOVA OCR)',
+        'Implemented device binding authentication and Refresh Token Rotation (RTR) using Nimbus JOSE/JWT',
+        'Real-time budget excess and transaction occurrence notification using Firebase Cloud Messaging (FCM)',
+        'Optimized external linkage performance with asynchronous API communication using WebClient (WebFlux)',
+      ],
+      challenges: [
+        {
+          problem: 'Limitations in implementing physical layer separation of actual financial companies in a single app/DB environment',
+          solution: 'Applied logical controls for account-level protection (AES encryption, JWT device binding, PIN pepper+BCrypt, KMS-based key management, OTP HMAC, Refresh Token JTI management)',
+        },
+        {
+          problem: 'Feedback from beta version pointed out that simple amount information alone was insufficient to lead user behavior change',
+          solution: 'Built an AI consumption report pipeline that aggregates transactions by section and suggests over-consumption counts, frequently used fields, and improvement plans (stabilized with forced JSON parsing and retry logic)',
+        },
+        {
+          problem: 'Performance bottleneck and need for API call optimization when synchronizing large-scale transaction history from multiple accounts',
+          solution: 'Improved synchronization speed and implemented efficient transaction management by combining asynchronous parallel API calls and batch processing using WebClient',
+        },
+      ],
+      goals: [
+        'Implement security and operation methods at the level of actual financial services',
+        'Build strengthened authentication/authorization and encryption systems for personal information protection',
+        'Suggest the best logical security alternatives in an environment where physical separation is impossible',
+      ],
+      retrospective: {
+        improvements: [
+          'Need to optimize polling and advance asynchronous configuration to improve loading speed of large-volume card histories',
+          'Need to consider physical separation environments such as gateways, circuit breakers, and read/write DB separation in the future',
+        ],
+        lessonsLearned: [
+          'Gained practical design and implementation experience of financial data security architecture',
+          'Acquired pipeline advancement techniques to increase stability of AI model responses',
+          'Strengthened capability to handle large-scale external API linkage through asynchronous non-blocking (WebFlux) communication',
+          'Experienced domain modeling and performance optimization of complex business logic (slot management, transaction classification)',
+        ],
+      },
+      screenshots: [
+        { src: '/assets/projects/walletslot/dashboard-overview.webp', description: 'Main dashboard to grasp consumption status at a glance' },
+        { src: '/assets/projects/walletslot/dashboard-detailed-view.webp', description: 'Detailed budget and expenditure history by slot' },
+        { src: '/assets/projects/walletslot/divide-amount.webp', description: 'Splitting composite payment history amounts using AI' },
+        { src: '/assets/projects/walletslot/slot-detail.webp', description: 'Checking consumption patterns and remaining budget of individual slots' },
+        { src: '/assets/projects/walletslot/spending-report-index.webp', description: 'AI-based monthly consumption report analysis results' },
+        { src: '/assets/projects/walletslot/recommendation-result.webp', description: 'Customized slot recommendation through user consumption pattern analysis' },
+        { src: '/assets/projects/walletslot/wishlist-main.webp', description: 'Wishlist and savings management to achieve goals' },
+        { src: '/assets/projects/walletslot/mydata-connect-complete.webp', description: 'Integration of assets across all financial sectors through MyData linkage' },
+        { src: '/assets/projects/walletslot/transaction-history.webp', description: 'Detailed transaction history synchronized in real-time' },
+        { src: '/assets/projects/walletslot/signup-complete.webp', description: 'Simple identity verification and membership registration process completed' },
+      ],
+    },
+  },
+  'promise-now': {
+    title: 'Promise Now',
+    shortDescription: 'Joy of together from promise to meeting on one screen, real-time promise management platform / SSAFY Common Project',
+    role: 'Team Lead / Backend',
+    details: {
+      fullDescription: 'A real-time collaboration platform where all processes from coordination of promise time to actual meeting can be managed in one service. Conducted as a SSAFY common project, I led the core domain logic design such as real-time location sharing leaderboard, bitmask-based schedule coordination algorithm, and STOMP-based chat system as the backend team leader. I particularly optimized performance by introducing Redis and SFU-based WebRTC architecture for large-scale real-time data processing.',
+      features: [
+        'Implemented When2Meet-style 30-minute unit bitmask-based real-time schedule coordination algorithm',
+        'Built real-time location sharing and arrival leaderboard using Redis Sorted Set and Haversine formula',
+        'Low-latency real-time chat and status update system based on STOMP (WebSocket)',
+        'Built and integrated high-performance multi-party video call server based on Mediasoup (SFU)',
+        'Established social login and JWT security system based on Spring Security + OAuth2',
+        'Dynamic query optimization with guaranteed type safety using QueryDSL',
+      ],
+      challenges: [
+        {
+          problem: 'Server CPU load surge and latency as participants increased when using OpenVidu (MCU) method',
+          solution: 'Switched to SFU (Mediasoup) architecture, reducing server load by 49% (507ms → 258ms) and latency by 50% to stabilize multi-participant environment',
+        },
+        {
+          problem: 'Concern of bottleneck if numerous location data occurring every second during real-time location sharing were directly saved to DB',
+          solution: 'Utilized Redis as a Write-Back cache and managed progress ranking with Sorted Set to minimize DB load and secure real-time responsiveness (Sub-second)',
+        },
+        {
+          problem: 'Need for an efficient way to handle numerous date and time data when implementing complex many-to-many schedule coordination logic',
+          solution: 'Managed 30-minute unit time slots as bitmask (TimeData) strings, and developed a Processor that cumulative sums them based on bit operations to maximize operation speed and storage efficiency',
+        },
+      ],
+      goals: [
+        'Provide real-time-centered user experience that supports the entire process of promises without interruption',
+        'Optimize backend load in real-time communication environments and build a scalable architecture',
+        'Provide technical difficulty resolution guidelines and maintain consistent code quality as a team leader',
+      ],
+      retrospective: {
+        improvements: [
+          'Planned advancement of Redis TTL fine-tuning and disaster recovery scenarios considering volatility of location sharing data',
+          'Need to ease coupling between domains for future transition to Microservices Architecture (MSA)',
+        ],
+        lessonsLearned: [
+          'Experienced the essence of real-time data processing by utilizing various Redis data structures (Sorted Set, Strings) at a practical level',
+          'Gained insight into simplifying complex business logic (schedule coordination) data-friendly by utilizing bitmask techniques',
+          'Verified performance difference between SFU and MCU with indicators and deeply understood the impact of system architecture decisions on performance',
+        ],
+      },
+      screenshots: [
+        { src: '/assets/projects/promisenow/landing.webp', description: 'Service main landing page' },
+        { src: '/assets/projects/promisenow/room-selection.webp', description: 'Promise room selection and management' },
+        { src: '/assets/projects/promisenow/schedule-monthly.webp', description: 'Check and coordinate promise schedules' },
+        { src: '/assets/projects/promisenow/schedule-weekly.webp', description: 'Weekly detailed schedule coordination' },
+        { src: '/assets/projects/promisenow/schedule-modal.webp', description: 'Create and edit confirmed schedules' },
+        { src: '/assets/projects/promisenow/map-view.webp', description: 'Real-time location sharing and map check' },
+        { src: '/assets/projects/promisenow/video-call-4p.webp', description: 'High-performance multi-party video call based on SFU' },
+        { src: '/assets/projects/promisenow/video-call-chat.webp', description: 'Real-time chat during video call' },
+        { src: '/assets/projects/promisenow/roulette.webp', description: 'Mini game (roulette) for menu selection' },
+        { src: '/assets/projects/promisenow/settings.webp', description: 'Personal and promise environment settings' },
+      ],
+    },
+  },
+  'personal-portfolio': {
+    title: 'Personal Portfolio & Web Performance Maximization',
+    shortDescription: 'Portfolio construction using Next.js 16 and Tailwind 4 and maximizing performance of large-volume gallery images',
+    role: 'Frontend Developer / UI Designer',
+    details: {
+      fullDescription: 'Migrated an existing personal portfolio site to the new stack of React 19 and Next.js 16 and optimized it for a GitHub Pages static deployment environment. To resolve micro-stuttering occurring when opening detailed pop-ups after initial development, I completely refactored the entire project architecture into a domain-centered structure based on DDD/FSD beyond simple code modifications. I also applied lazy loading to heavy UI elements and built a custom verification tool to constantly monitor them, enhancing technical perfection.',
+      features: [
+        'Built Next.js 16 App Router-based static page build and GitHub Pages deployment environment (output: export)',
+        'Introduced domain-centered architecture (DDD/FSD) for separation of concerns and structuring of large-scale components (Projects, History, etc.)',
+        'Implemented lazy loading for heavy UI (modals, detail tabs) using next/dynamic, dramatically improving interaction speed',
+        'Designed and operated a custom Validator script that automatically audits compliance with Atomic Design rules and data isolation status',
+        'Designed and operated an automation script for batch compression/conversion of SVG -> WebP by interlocking Node.js and sharp library',
+        'Applied animation GPU acceleration utilizing transform-gpu and will-change-transform properties of Tailwind 4',
+      ],
+      challenges: [
+        {
+          problem: 'Main thread bottleneck caused by thousands of DOM nodes being simultaneously calculated when opening detailed information, due to large-scale data (JSON) and complex UI logic concentrated in a single file',
+          solution: 'Isolated data into *-data.ts through a component fragmentation strategy, and split the UI into functional units to apply React.memo and lazy loading, distributing and removing about 50% or more of the rendering load',
+        },
+        {
+          problem: 'Complex SVG screenshot resources of 4MB to 11MB each, built in high resolution from Figma design tools, caused a fatal blocking effect on the browser rendering engine',
+          solution: 'Built a batch compression utility using sharp to convert files of 10MB or more into ultra-lightweight WebP format of 10 to 20KB (average 98% capacity reduction)',
+        },
+      ],
+      goals: [
+        'Maximize Lighthouse performance scores by applying latest frontend optimization best practices',
+        'Thoroughly comply with static deployment constraints while stably supporting latest React features and dynamic UI motions',
+        'Demonstrate full-stack engineering capabilities spanning architecture design and performance tuning',
+      ],
+      retrospective: {
+        improvements: [
+          'Maintain a consistent optimization rule automatic application system for sections added in the future based on the refactored domain structure',
+          'Integrate automated quality control scripts into the CI/CD pipeline to fundamentally block performance degradation factors before build',
+        ],
+        lessonsLearned: [
+          'Realized that structural design at the architecture level is essential for the "smoothness" perceived by users, more important than simple function implementation',
+          'Understood the value of creating automation tools to solve performance problems, realizing they should be approached through numbers and analysis (Diagnosis), not intuition',
+          'Gained deep insight into React\'s rendering mechanism and bundle optimization while splitting bloated code and applying lazy loading',
+        ],
+      },
+    },
+  },
+}
+
+export const getProjectsData = (lang: Locale): Project[] => {
+  const translations = lang === 'ko' ? koProjectTranslations : enProjectTranslations
+  
+  return baseProjectsData.map(base => ({
+    ...base,
+    ...translations[base.id]
+  }))
+}
