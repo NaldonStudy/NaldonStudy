@@ -72,7 +72,7 @@ export const ProjectCard = memo(({
               <span className="text-xs font-semibold">{project.award}</span>
             </div>
           )}
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-2 break-keep">
+          <p className="text-sm text-muted-foreground mb-4 break-keep">
             {project.shortDescription}
           </p>
 

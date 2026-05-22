@@ -137,9 +137,11 @@ export const projectsData: Project[] = [
     period: '2025.10.10 - 2025.11.20',
     teamSize: 6,
     teamMembers: [
-      { role: 'Frontend', count: 3 },
-      { role: 'Backend', count: 2, description: '아키텍처 설계 및 구현', isMe: true },
-      { role: 'AI / Data', count: 1 },
+      { role: 'Backend', count: 1, isMe: true },
+      { role: 'Frontend', count: 2 },
+      { role: 'Data', count: 1 },
+      { role: 'Infra', count: 1 },
+      { role: 'AI', count: 1 },
     ],
     techStack: [
       'Java 21',
@@ -152,7 +154,7 @@ export const projectsData: Project[] = [
       'Docker',
       'Flutter',
     ],
-    role: 'Backend / Speaker',
+    role: 'Backend',
     links: {
       github: 'https://github.com/NaldonStudy/DollarInsight',
     },
@@ -225,9 +227,9 @@ export const projectsData: Project[] = [
     period: '2025.08.25 - 2025.09.29',
     teamSize: 6,
     teamMembers: [
-      { role: 'Infra', count: 1 },
+      { role: 'Backend', count: 1, isMe: true },
       { role: 'Frontend', count: 3 },
-      { role: 'Backend', count: 1, description: '팀 리더 / 보안 설계', isMe: true },
+      { role: 'Backend / Infra', count: 1 },
       { role: 'Data', count: 1 },
     ],
     techStack: [
@@ -243,7 +245,7 @@ export const projectsData: Project[] = [
       'Redis',
       'Docker',
     ],
-    role: 'Backend Lead / Presenter',
+    role: 'Backend',
     links: {
       github: 'https://github.com/NaldonStudy/WalletSlot',
     },
@@ -251,7 +253,7 @@ export const projectsData: Project[] = [
     thumbnailPosition: 'top',
     details: {
       fullDescription:
-        '본인의 소비 지출에 대해 무뎌져 있는 사람들을 위해 자동 및 수동으로 슬롯(계좌 분할)을 관리해주는 자산 관리 플랫폼입니다. 삼성 청년 SWㆍAI 아카데미 특화 프로젝트로 진행되었으며, 인프라 1, 프론트 3, 백엔드 2, 데이터 1 등 총 6인의 팀 프로젝트로 진행되었습니다. 백엔드 리더로서 전체 아키텍처와 보안 설계를 주도했습니다. SSAFY 내부 금융망과 연동하여 실제 금융 환경과 유사한 경험을 제공하며, AI 기반 소비 리포트를 통해 계획적인 소비 습관 형성을 돕습니다.',
+        '본인의 소비 지출에 대해 무뎌져 있는 사람들을 위해 자동 및 수동으로 슬롯(계좌 분할)을 관리해주는 자산 관리 플랫폼입니다. 삼성 청년 SWㆍAI 아카데미 특화 프로젝트로 진행되었으며, 백엔드 1, 프론트 3, 백엔드+인프라 1, 데이터 1 등 총 6인의 팀 프로젝트로 진행되었습니다. 백엔드 개발자로서 전체 아키텍처와 보안 설계를 담당했습니다. SSAFY 내부 금융망과 연동하여 실제 금융 환경과 유사한 경험을 제공하며, AI 기반 소비 리포트를 통해 계획적인 소비 습관 형성을 돕습니다.',
       features: [
         '마이데이터 기반 계좌 연동 및 실시간 거래 내역 동기화 (SSAFY 금융망 API)',
         'AWS KMS 및 AES-256을 활용한 계좌 정보 암화화 및 PIN/OTP 기반의 다중 보안 체계 구축',
@@ -321,8 +323,9 @@ export const projectsData: Project[] = [
     teamSize: 5,
     teamMembers: [
       { role: 'Team Lead / Backend', count: 1, description: '핵심 도메인 설계', isMe: true },
-      { role: 'Frontend', count: 3 },
       { role: 'Backend', count: 1 },
+      { role: 'Frontend', count: 2 },
+      { role: 'Backend / Infra', count: 1 },
     ],
     techStack: [
       'Java 21',
@@ -345,7 +348,7 @@ export const projectsData: Project[] = [
       fullDescription: '약속 시간 조율부터 실제 만남까지의 모든 과정을 하나의 service에서 관리할 수 있는 실시간 협업 플랫폼입니다. 삼성 청년 SWㆍAI 아카데미 공통 프로젝트로 진행되었으며, 백엔드 팀장으로서 실시간 위치 공유 리더보드, 비트마스크 기반 일정 조율 알고리즘, STOMP 기반 채팅 시스템 등 핵심 도메인 로직 설계를 주도했습니다. 특히 대규모 실시간 데이터 처리를 위해 Redis와 SFU 기반 WebRTC 아키텍처를 도입하여 성능을 최적화했습니다.',
       features: [
         'When2Meet 스타일의 30분 단위 비트마스크 기반 실시간 일정 조율 알고리즘 구현',
-        'Redis Sorted Set과 Haversine 공식공식을 활용한 실시간 위치 공유 및 도착 리더보드 구축',
+        'Redis Sorted Set과 Haversine 공식을 활용한 실시간 위치 공유 및 도착 리더보드 구축',
         'STOMP(WebSocket) 기반의 저지연 실시간 채팅 및 상태 업데이트 시스템',
         'Mediasoup(SFU) 기반의 고성능 다자간 화상 통화 서버 구축 및 연동',
         'Spring Security + OAuth2 기반의 소셜 로그인 및 JWT 보안 체계 수립',
