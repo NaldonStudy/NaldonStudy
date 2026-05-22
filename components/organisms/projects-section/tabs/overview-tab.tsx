@@ -43,11 +43,55 @@ export const OverviewTab = memo(({ project }: { project: Project }) => {
             <Users className="w-5 h-5 text-primary" />
             팀 구성
           </h3>
-          <div className="flex-1 p-5 rounded-xl border border-border/30 flex items-center justify-center bg-secondary/10">
-            <div className="text-center">
-              <p className="text-4xl font-bold text-primary mb-1">{project.teamSize}명</p>
-              <p className="text-sm text-muted-foreground">프로젝트 참여 인원</p>
-            </div>
+          <div className="flex-1 p-5 rounded-xl border border-border/30 bg-secondary/10">
+            {project.teamMembers ? (
+              <div className="space-y-3">
+                <div className="text-center mb-4">
+                  <p className="text-3xl font-bold text-primary">{project.teamSize}명</p>
+                  <p className="text-xs text-muted-foreground">프로젝트 참여 인원</p>
+                </div>
+                <div className="grid grid-cols-1 gap-2">
+                  {project.teamMembers.map((member, i) => (
+                    <div 
+                      key={i} 
+                      className={`flex items-center justify-between p-2.5 rounded-lg border transition-all ${
+                        member.isMe 
+                          ? 'bg-primary/10 border-primary shadow-sm ring-1 ring-primary/20' 
+                          : 'bg-background/50 border-border/50'
+                      }`}
+                    >
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2">
+                          <span className={`text-sm font-medium ${member.isMe ? 'text-primary font-bold' : 'text-foreground'}`}>
+                            {member.role}
+                          </span>
+                          {member.isMe && (
+                            <span className="text-[10px] bg-primary text-primary-foreground px-1.5 py-0.5 rounded-md font-bold uppercase tracking-wider">
+                              Me
+                            </span>
+                          )}
+                        </div>
+                        {member.description && (
+                          <span className={`text-[10px] ${member.isMe ? 'text-primary/90 font-bold' : 'text-muted-foreground font-medium'}`}>
+                            {member.description}
+                          </span>
+                        )}
+                      </div>
+                      <span className={`text-sm font-bold ${member.isMe ? 'text-primary' : 'text-muted-foreground'}`}>
+                        {member.count}명
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="h-full flex items-center justify-center">
+                <div className="text-center">
+                  <p className="text-4xl font-bold text-primary mb-1">{project.teamSize}명</p>
+                  <p className="text-sm text-muted-foreground">프로젝트 참여 인원</p>
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </div>
