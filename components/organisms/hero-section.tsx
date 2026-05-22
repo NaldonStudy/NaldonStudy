@@ -4,24 +4,16 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { withBasePath } from '@/lib/utils'
-
-const fullText = '소통의 가치를 중요하게 생각하는\n개발자 김도훈입니다'
+import { useI18n } from '@/hooks/use-i18n'
+import { siteConfig } from '@/config/site'
 
 export function HeroSection() {
+  const { dict } = useI18n()
   const [displayedText, setDisplayedText] = useState('')
   const [isTypingComplete, setIsTypingComplete] = useState(false)
 
   useEffect(() => {
-    // 한글 자소 단위 삭제를 시뮬레이션하기 위한 정교한 시퀀스
-    const sequence = [
-      '소통의 같이',    // 1. 오타 입력 완료
-      '소통의 같ㅇ',    // 2. 'ㅣ' 삭제
-      '소통의 같',      // 3. 'ㅇ' 삭제
-      '소통의 가',      // 4. 'ㅌ' 삭제
-      '소통의 ',        // 5. '가' 삭제 완료
-      '소통의 가치를 중요하게 생각하는\n개발자 김도훈입니다' // 6. 최종 문구
-    ]
-
+    const sequence = dict.hero.typingSequence
     let currentStep = 0
     let currentText = ''
     let timeoutId: NodeJS.Timeout
@@ -34,34 +26,27 @@ export function HeroSection() {
       if (currentText === targetText) {
         if (currentStep < sequence.length - 1) {
           currentStep++
-          // 오타 완료 후 대기 (1초 -> 0.7초)
           if (currentStep === 1) pause = 700
-          // 자소 단위 삭제 간격 (120ms -> 80ms)
           else if (currentStep > 1 && currentStep < 5) pause = 80
-          // 삭제 완료 후 다시 타이핑 시작 전 대기 (600ms -> 400ms)
           else if (currentStep === 5) pause = 400
         } else {
           setIsTypingComplete(true)
           return
         }
       } else {
-        // 목표 텍스트와 다를 경우
         if (currentText.length > targetText.length || !targetText.startsWith(currentText)) {
-          // 삭제(백스페이스) 로직
           if (currentStep > 0 && currentStep < 5) {
-            nextText = targetText // 시퀀스에 정의된 자소 단계로 바로 적용
+            nextText = targetText
           } else {
             nextText = currentText.slice(0, -1)
           }
-          pause = 70 // 백스페이스 속도 (100ms -> 70ms)
+          pause = 70
         } else {
-          // 글자 추가 로직
           nextText = targetText.slice(0, currentText.length + 1)
-          pause = 130 // 타이핑 속도 (180ms -> 130ms)
+          pause = 130
         }
       }
 
-      // 상태 업데이트와 타이머 설정을 분리하여 중복 실행 방지
       currentText = nextText
       setDisplayedText(currentText)
       timeoutId = setTimeout(type, pause)
@@ -69,7 +54,7 @@ export function HeroSection() {
 
     timeoutId = setTimeout(type, 500)
     return () => clearTimeout(timeoutId)
-  }, [])
+  }, [dict.hero.typingSequence])
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-4 pt-16 snap-start">
@@ -85,8 +70,8 @@ export function HeroSection() {
           <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/20 p-2 bg-background shadow-2xl">
             <div className="w-full h-full rounded-full overflow-hidden bg-secondary relative">
               <Image
-                src={withBasePath("/assets/profile/dohun-image.jpg")}
-                alt="김도훈 프로필"
+                src={withBasePath(siteConfig.profile.main)}
+                alt={dict.hero.profileAlt}
                 fill
                 priority
                 className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500 scale-105 hover:scale-100"
@@ -108,7 +93,7 @@ export function HeroSection() {
           >
             <p className="text-xs font-bold text-primary flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              Open for Opportunities
+              {dict.hero.profileBadge}
             </p>
           </motion.div>
         </motion.div>
@@ -136,23 +121,17 @@ export function HeroSection() {
           >
             <div className="text-base md:text-lg text-muted-foreground leading-relaxed space-y-4 break-keep">
               <p>
-                수학을 좋아하여 이과를 선택했고, 전자과에 진학했습니다.{" "}
-                <br className="hidden xl:block" />
-                전자공학 전공에서 하드웨어를 넘어 수학과 유사한 알고리즘의 매력을 느꼈습니다.
+                {dict.hero.description1}
               </p>
               <p>
-                이후 소프트웨어의 매력에 빠지게 되었고,{" "}
-                <br className="hidden xl:block" />
-                메타버스 학회와 AI 연구실을 거쳐 삼성 청년 SW·AI 아카데미(SSAFY)까지{" "}
-                <br className="hidden xl:block" />
-                개발자가 되기 위해 다양한 경험을 쌓아왔습니다.
+                {dict.hero.description2}
               </p>              
               <div className="pt-4 border-l-4 border-primary/50 pl-6 bg-primary/5 py-4 rounded-r-xl">
                 <p className="text-foreground font-semibold text-lg mb-1">
-                  "소통하기 편하고, 함께 일하고 싶은 개발자"
+                  {dict.hero.motto}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  동료들에게는 신뢰할 수 있는 코드를, 사용자에게는 최상의 사용성을 제공하겠습니다.
+                  {dict.hero.mottoSub}
                 </p>
               </div>
             </div>
@@ -175,7 +154,7 @@ export function HeroSection() {
                 }}
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all group font-bold shadow-lg shadow-primary/20 hover:scale-105 active:scale-95"
               >
-                <span>프로필 상세 보기</span>
+                <span>{dict.hero.viewProfile}</span>
                 <motion.svg
                   animate={{ y: [0, 5, 0] }}
                   transition={{ repeat: Infinity, duration: 1.5 }}
@@ -200,7 +179,7 @@ export function HeroSection() {
                 }}
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all font-bold hover:scale-105 active:scale-95 border border-border"
               >
-                <span>프로젝트 결과물</span>
+                <span>{dict.hero.viewProjects}</span>
               </button>
             </motion.div>
           </motion.div>

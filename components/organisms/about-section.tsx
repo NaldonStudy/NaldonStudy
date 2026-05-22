@@ -10,37 +10,8 @@ import { Badge } from '@/components/ui/badge'
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
 import { withBasePath } from '@/lib/utils'
-
-interface AboutInfo {
-  name: string
-  email: string
-  github: string
-  linkedin: string
-  velog: string
-  location: string
-  education: string
-  birthYear: string
-  profileImages: string[]
-  keywords: string[]
-}
-
-const aboutInfo: AboutInfo = {
-  name: '김도훈',
-  email: 'luckyboyhoon@naver.com',
-  github: 'github.com/NaldonStudy',
-  linkedin: 'linkedin.com/in/도훈-김-6b56993a2',
-  velog: 'velog.io/@naldon_study',
-  location: '대한민국 경기도 (Gyeonggi-do, South Korea)',
-  education: '고려대학교 세종캠퍼스 전자및정보공학과',
-  birthYear: '2019학번 (2025년 졸업)',
-  profileImages: [
-    '/assets/profile/DoHun1.jpg',
-    '/assets/profile/DoHun2.jpg',
-    '/assets/profile/DoHun3.jpg',
-    '/assets/profile/DoHun4.jpg',
-  ],
-  keywords: ['소통형 개발자', '빠른 적응력', '문제 해결 중심', '책임감 있는', '지속적 성장'],
-}
+import { useI18n } from '@/hooks/use-i18n'
+import { siteConfig } from '@/config/site'
 
 const InfoItem = memo(({
   icon,
@@ -81,11 +52,12 @@ const InfoItem = memo(({
 InfoItem.displayName = 'InfoItem'
 
 export function AboutSection() {
+  const { dict } = useI18n()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % aboutInfo.profileImages.length)
+      setCurrentImageIndex((prev) => (prev + 1) % siteConfig.profile.slider.length)
     }, 5000)
 
     return () => clearInterval(timer)
@@ -93,7 +65,7 @@ export function AboutSection() {
 
   return (
     <SectionWrapper id="about" className="snap-start">
-      <SectionHeader title="About Me" subtitle="끊임없이 배우고 소통하는 개발자입니다" />
+      <SectionHeader title={dict.about.title} subtitle={dict.about.subtitle} />
 
       <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Profile Image Slider */}
@@ -117,8 +89,8 @@ export function AboutSection() {
                       className="w-full h-full relative"
                     >
                       <Image
-                        src={withBasePath(aboutInfo.profileImages[currentImageIndex])}
-                        alt={`${aboutInfo.name} 프로필 ${currentImageIndex + 1}`}
+                        src={withBasePath(siteConfig.profile.slider[currentImageIndex])}
+                        alt={`${dict.about.profileAlt} ${currentImageIndex + 1}`}
                         fill
                         className="object-cover"
                         priority={currentImageIndex === 0}
@@ -128,7 +100,7 @@ export function AboutSection() {
                   
                   {/* Slider Progress Indicator */}
                   <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
-                    {aboutInfo.profileImages.map((_, index) => (
+                    {siteConfig.profile.slider.map((_, index) => (
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
@@ -159,59 +131,60 @@ export function AboutSection() {
               <div className="h-1.5 bg-gradient-to-r from-primary to-accent" />
               <CardContent className="p-8">
                 <div className="flex items-center justify-between mb-8">
-                  <h3 className="text-3xl font-bold text-foreground">{aboutInfo.name}</h3>
+                  <h3 className="text-3xl font-bold text-foreground">{dict.about.name}</h3>
                   <div className="flex gap-2">
-                    <Badge variant="outline" className="text-xs border-primary/20 text-primary">Backend</Badge>
-                    <Badge variant="outline" className="text-xs border-accent/20 text-accent">Infra</Badge>
+                    {siteConfig.roles.map((role) => (
+                      <Badge key={role} variant="outline" className="text-xs border-primary/20 text-primary">{role}</Badge>
+                    ))}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 mb-8">
                   <InfoItem
                     icon={<Mail className="w-4 h-4" />}
-                    label="Email"
-                    value={aboutInfo.email}
-                    href={`mailto:${aboutInfo.email}`}
+                    label={dict.about.email}
+                    value={siteConfig.email}
+                    href={`mailto:${siteConfig.email}`}
                   />
                   <InfoItem
                     icon={<MapPin className="w-4 h-4" />}
-                    label="Location"
-                    value={aboutInfo.location}
+                    label={dict.about.location}
+                    value={dict.about.locationValue}
                   />
                   <InfoItem
                     icon={<GraduationCap className="w-4 h-4" />}
-                    label="Education"
-                    value={aboutInfo.education}
+                    label={dict.about.education}
+                    value={dict.about.educationValue}
                   />
                   <InfoItem
                     icon={<Calendar className="w-4 h-4" />}
-                    label="Academic"
-                    value={aboutInfo.birthYear}
+                    label={dict.about.academic}
+                    value={dict.about.academicValue}
                   />
                   <InfoItem
                     icon={<Github className="w-4 h-4" />}
-                    label="GitHub"
-                    value={aboutInfo.github}
-                    href={`https://${aboutInfo.github}`}
+                    label={dict.about.github}
+                    value={siteConfig.links.github.replace('https://', '')}
+                    href={siteConfig.links.github}
                   />
                   <InfoItem
                     icon={<Linkedin className="w-4 h-4" />}
-                    label="LinkedIn"
-                    value="Dohun Kim"
-                    href={`https://${aboutInfo.linkedin}`}
+                    label={dict.about.linkedin}
+                    value={siteConfig.englishName}
+                    href={siteConfig.links.linkedin}
                   />
                   <InfoItem
                     icon={<BookOpen className="w-4 h-4" />}
-                    label="Velog"
-                    value={aboutInfo.velog}
-                    href={`https://${aboutInfo.velog}`}
+                    label={dict.about.velog}
+                    value={siteConfig.links.velog.replace('https://', '')}
+                    href={siteConfig.links.velog}
                   />
                 </div>
 
                 <div className="pt-6 border-t border-border/50">
-                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Core Keywords</p>
+                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">{dict.about.coreKeywords}</p>
                   <div className="flex flex-wrap gap-2">
-                    {aboutInfo.keywords.map((keyword) => (
+                    {dict.about.keywords.map((keyword) => (
                       <Badge key={keyword} variant="secondary" className="px-3 py-1 bg-primary/5 hover:bg-primary/10 text-primary border-none flex gap-1.5 items-center">
                         <CheckCircle2 className="w-3 h-3" />
                         {keyword}
