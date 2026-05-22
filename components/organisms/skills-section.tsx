@@ -128,7 +128,7 @@ const SkillItem = memo(({ skill, index }: { skill: Skill; index: number }) => {
         </div>
         <BatteryIndicator level={skill.level} />
       </div>
-      <p className="text-sm text-muted-foreground leading-relaxed pl-11">
+      <p className="text-sm text-muted-foreground leading-relaxed pl-11 break-keep">
         {skill.description}
       </p>
     </motion.div>

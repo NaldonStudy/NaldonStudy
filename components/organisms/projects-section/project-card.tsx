@@ -63,7 +63,7 @@ export const ProjectCard = memo(({
         </div>
 
         <CardContent className="p-5">
-          <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors whitespace-pre-line">
+          <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors whitespace-pre-line break-keep">
             {project.title}
           </h3>
           {project.award && (
@@ -72,7 +72,7 @@ export const ProjectCard = memo(({
               <span className="text-xs font-semibold">{project.award}</span>
             </div>
           )}
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+          <p className="text-sm text-muted-foreground mb-4 line-clamp-2 break-keep">
             {project.shortDescription}
           </p>
 
