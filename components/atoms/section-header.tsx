@@ -19,10 +19,10 @@ export function SectionHeader({ title, subtitle, className, children }: SectionH
       transition={{ duration: 0.6 }}
       className={cn("text-center mb-16", className)}
     >
-      <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 tracking-tight">
+      <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 tracking-tight break-keep">
         {title}
       </h2>
-      {subtitle && <p className={cn("text-muted-foreground", children ? "mb-8" : "")}>{subtitle}</p>}
+      {subtitle && <p className={cn("text-muted-foreground break-keep", children ? "mb-8" : "")}>{subtitle}</p>}
       {children}
     </motion.div>
   )
