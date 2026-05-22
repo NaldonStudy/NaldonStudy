@@ -121,7 +121,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-left flex-1"
         >
-          <h1 className="text-3xl md:text-5xl lg:text-5xl font-bold text-foreground mb-8 min-h-[1.5em] whitespace-pre-line leading-tight">
+          <h1 className="text-2xl min-[390px]:text-3xl md:text-5xl lg:text-5xl font-bold text-foreground mb-8 min-h-[1.5em] whitespace-pre-line leading-tight break-keep">
             {displayedText}
             {!isTypingComplete && (
               <span className="typing-cursor text-primary">|</span>
@@ -134,19 +134,19 @@ export function HeroSection() {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="space-y-6"
           >
-            <div className="text-base md:text-lg text-muted-foreground leading-relaxed space-y-4">
+            <div className="text-base md:text-lg text-muted-foreground leading-relaxed space-y-4 break-keep">
               <p>
-                수학을 좋아하여 이과를 선택했고, 전자과에 진학했습니다.
+                수학을 좋아하여 이과를 선택했고, 전자과에 진학했습니다.{" "}
                 <br className="hidden xl:block" />
                 전자공학 전공에서 하드웨어를 넘어 수학과 유사한 알고리즘의 매력을 느꼈습니다.
               </p>
               <p>
-                이후 소프트웨어의 매력에 빠지게 되었고,
+                이후 소프트웨어의 매력에 빠지게 되었고,{" "}
                 <br className="hidden xl:block" />
-                메타버스 학회와 AI 연구실을 거쳐 삼성 청년 SW·AI 아카데미(SSAFY)까지
+                메타버스 학회와 AI 연구실을 거쳐 삼성 청년 SW·AI 아카데미(SSAFY)까지{" "}
                 <br className="hidden xl:block" />
                 개발자가 되기 위해 다양한 경험을 쌓아왔습니다.
-              </p>
+              </p>              
               <div className="pt-4 border-l-4 border-primary/50 pl-6 bg-primary/5 py-4 rounded-r-xl">
                 <p className="text-foreground font-semibold text-lg mb-1">
                   "소통하기 편하고, 함께 일하고 싶은 개발자"
