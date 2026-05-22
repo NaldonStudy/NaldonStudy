@@ -2,26 +2,38 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Moon, Sun, Menu, X } from 'lucide-react'
+import { Moon, Sun, Menu, X, Languages } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
-
-const navItems = [
-  { label: 'About Me', href: '#about' },
-  { label: 'History', href: '#history' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Contact', href: '#contact' },
-]
-
-const externalLinks = [
-  { label: 'GitHub', href: 'https://github.com/NaldonStudy' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/도훈-김-6b56993a2' },
-  { label: 'Blog', href: 'https://velog.io/@naldon_study' },
-]
+import { useI18n } from '@/hooks/use-i18n'
+import { useRouter, usePathname } from 'next/navigation'
 
 export function Navigation() {
+  const { dict, lang } = useI18n()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const navItems = [
+    { label: dict.nav.about, href: '#about' },
+    { label: dict.nav.history, href: '#history' },
+    { label: dict.nav.skills, href: '#skills' },
+    { label: dict.nav.projects, href: '#projects' },
+    { label: dict.nav.gallery, href: '#gallery' },
+    { label: dict.nav.contact, href: '#contact' },
+  ]
+
+  const externalLinks = [
+    { label: dict.nav.github, href: 'https://github.com/NaldonStudy' },
+    { label: dict.nav.linkedin, href: 'https://www.linkedin.com/in/도훈-김-6b56993a2' },
+    { label: dict.nav.blog, href: 'https://velog.io/@naldon_study' },
+  ]
+
+  const toggleLanguage = () => {
+    const newLang = lang === 'ko' ? 'en' : 'ko'
+    const newPathname = pathname.replace(`/${lang}`, `/${newLang}`)
+    router.push(newPathname)
+  }
+
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
@@ -63,14 +75,14 @@ export function Navigation() {
         }`}
       >
         <nav className="container mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-          <motion.a
-            href="#"
+          <motion.button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="text-xl font-bold text-foreground"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             DH.Kim
-          </motion.a>
+          </motion.button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
@@ -95,30 +107,51 @@ export function Navigation() {
               </a>
             ))}
             {mounted && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="ml-2"
-              >
-                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">테마 변경</span>
-              </Button>
+              <div className="flex items-center gap-1 ml-2 border-l pl-2 border-border">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleLanguage}
+                  className="text-xs font-bold"
+                >
+                  <Languages className="h-4 w-4 mr-1" />
+                  {lang.toUpperCase()}
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                >
+                  <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                  <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                  <span className="sr-only">{dict.common.themeChange}</span>
+                </Button>
+              </div>
             )}
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
             {mounted && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              >
-                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              </Button>
+              <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleLanguage}
+                  className="text-xs font-bold"
+                >
+                  <Languages className="h-4 w-4 mr-1" />
+                  {lang.toUpperCase()}
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                >
+                  <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                  <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                </Button>
+              </>
             )}
             <Button
               variant="ghost"
