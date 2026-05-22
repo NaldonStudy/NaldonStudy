@@ -2,17 +2,20 @@
 
 import React, { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
+import { useI18n } from '@/hooks/use-i18n'
 
 interface IdeLoadingScreenProps {
   onComplete: () => void
 }
 
 export function IdeLoadingScreen({ onComplete }: IdeLoadingScreenProps) {
+  const { dict, lang } = useI18n()
   const [typedCode, setTypedCode] = useState('')
   const [showTerminal, setShowTerminal] = useState(false)
   const [isFadingOut, setIsFadingOut] = useState(false)
   
-  const fullMessage = 'System.out.println("김도훈 포트폴리오에 오신걸 환영합니다");'
+  const welcomeMessage = lang === 'ko' ? '김도훈 포트폴리오에 오신걸 환영합니다' : 'Welcome to Dohun Kim\'s Portfolio'
+  const fullMessage = `System.out.println("${welcomeMessage}");`
   const typingSpeed = 50 // ms per character
 
   useEffect(() => {
@@ -130,7 +133,7 @@ export function IdeLoadingScreen({ onComplete }: IdeLoadingScreenProps) {
             <div className="mb-1 text-[#6a8759]">
               /usr/bin/java -Dfile.encoding=UTF-8 -cp /out/production/Portfolio Main
             </div>
-            <div className="font-bold text-[#eeeeee]">김도훈 포트폴리오에 오신걸 환영합니다</div>
+            <div className="font-bold text-[#eeeeee]">{welcomeMessage}</div>
             <div className="mt-2 text-[#4e9ed4]">Process finished with exit code 0</div>
           </div>
         </div>

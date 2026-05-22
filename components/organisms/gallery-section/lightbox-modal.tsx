@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { X, ExternalLink, ImageIcon } from 'lucide-react'
 import { withBasePath } from '@/lib/utils'
 import { GalleryItem } from './gallery-data'
+import { useI18n } from '@/hooks/use-i18n'
 
 interface LightboxModalProps {
   item: GalleryItem | null
@@ -13,6 +14,7 @@ interface LightboxModalProps {
 }
 
 export const LightboxModal = memo(({ item, onClose }: LightboxModalProps) => {
+  const { dict } = useI18n()
   const [imageError, setImageError] = useState(false)
 
   if (!item) return null
@@ -87,7 +89,7 @@ export const LightboxModal = memo(({ item, onClose }: LightboxModalProps) => {
                 className="flex items-center gap-2 text-sm text-primary hover:underline"
               >
                 <ExternalLink className="w-4 h-4" />
-                YouTube에서 보기
+                {dict.gallery.youtubeView}
               </a>
             )}
           </div>

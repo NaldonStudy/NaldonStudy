@@ -5,67 +5,18 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { withBasePath } from '@/lib/utils'
-
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
+import { useI18n } from '@/hooks/use-i18n'
 
 interface Skill {
   name: string
-  level: 1 | 2 | 3
+  level: number
   description: string
   icon?: string
 }
 
-interface SkillCategory {
-  category: string
-  skills: Skill[]
-}
-
-const batteryLevelDescriptions = {
-  1: '하: 기본 이해 및 학습',
-  2: '중: 프로젝트 활용 및 구현',
-  3: '상: 핵심 설계 및 실무 운영',
-}
-
-const skillsData: SkillCategory[] = [
-  {
-    category: 'Core (주력)',
-    skills: [
-      { name: 'Java', level: 3, description: '객체지향 기반으로 핵심 도메인 로직과 유지보수성 높은 백엔드 코드를 설계·구현', icon: '/assets/skills/core/java.svg' },
-      { name: 'Spring', level: 3, description: 'REST API 설계 및 계층 구조 표준화를 적용하며, Spring Security와 JWT를 활용한 보안 인증 체계 구축', icon: '/assets/skills/core/spring.svg' },
-      { name: 'MySQL', level: 3, description: '스키마 설계 및 Flyway를 활용한 데이터베이스 형상 관리를 통해 안정적인 마이그레이션 환경 운영', icon: '/assets/skills/core/mysql.svg' },
-    ],
-  },
-  {
-    category: 'Experienced (프로젝트 적용)',
-    skills: [
-      { name: 'Python', level: 3, description: '데이터 처리 전문성을 바탕으로 대규모 데이터 가공 및 서버/AI 핵심 로직 설계·구현', icon: '/assets/skills/experienced/python.svg' },
-      { name: 'PyTorch', level: 2, description: '모델 학습·추론 실험을 구성하고 성능 비교 및 개선 과정을 경험', icon: '/assets/skills/experienced/pytorch.svg' },
-      { name: 'MongoDB', level: 2, description: '문서형 데이터 특성에 맞춘 구조 설계와 기능 구현 경험', icon: '/assets/skills/experienced/mongodb.svg' },
-      { name: 'Redis', level: 3, description: '캐시 전략 수립 및 Refresh Token 저장소 활용을 통해 시스템 성능과 보안을 동시 개선', icon: '/assets/skills/experienced/redis.svg' },
-      { name: 'FastAPI', level: 2, description: 'AI 기능 서바이빙을 위한 고성능 API를 구성하고 백엔드 시스템과 유기적으로 연동', icon: '/assets/skills/experienced/fastapi.svg' },
-    ],
-  },
-  {
-    category: 'Infra (인프라 적용)',
-    skills: [
-      { name: 'AWS', level: 2, description: 'EC2, S3, CodeDeploy 기반의 CI/CD를 구축하고 IAM Role을 활용한 보안 최적화 수행', icon: '/assets/skills/infra/aws.svg' },
-      { name: 'Docker', level: 2, description: '개발·실행 환경을 컨테이너로 표준화해 재현성과 배포 편의성 향상', icon: '/assets/skills/infra/docker.svg' },
-      { name: 'Nginx', level: 2, description: '리버스 프록시 및 client_max_body_size 등 서버 설정을 최적화하여 대용량 요청 처리 안정화', icon: '/assets/skills/infra/nginx.svg' },
-    ],
-  },
-  {
-    category: 'Tools & Learning',
-    skills: [
-      { name: 'Jira', level: 3, description: '이슈 기반의 체계적인 작업 관리로 팀의 개발 생산성을 높이고 협업 프로세스 주도', icon: '/assets/skills/tools/jira.svg' },
-      { name: 'Figma', level: 2, description: '기획/디자인 산출물을 이해하고 개발 요구사항으로 해석해 협업', icon: '/assets/skills/tools/figma.svg' },
-      { name: 'TypeScript', level: 1, description: '프론트/풀스택 확장을 위해 기본 문법과 활용 흐름을 학습 중', icon: '/assets/skills/tools/typescript.svg' },
-      { name: 'Kubernetes', level: 1, description: '컨테이너 오케스트레이션 개념을 학습하며 배포/운영 역량 확장 중', icon: '/assets/skills/tools/kubernetes.svg' },
-    ],
-  },
-]
-
-const BatteryIndicator = memo(({ level, size = 'md' }: { level: 1 | 2 | 3; size?: 'sm' | 'md' }) => {
+const BatteryIndicator = memo(({ level, size = 'md' }: { level: number; size?: 'sm' | 'md' }) => {
   const getColor = () => {
     switch (level) {
       case 3:
@@ -137,9 +88,13 @@ const SkillItem = memo(({ skill, index }: { skill: Skill; index: number }) => {
 SkillItem.displayName = 'SkillItem'
 
 export function SkillsSection() {
+  const { dict } = useI18n()
+  const batteryLevelDescriptions = dict.skills.levels
+  const skillsData = dict.skills.categories
+
   return (
     <SectionWrapper id="skills">
-      <SectionHeader title="Skills" subtitle="보유 기술 스택">
+      <SectionHeader title={dict.skills.title} subtitle={dict.skills.subtitle}>
         <div className="inline-flex flex-col md:flex-row gap-4 md:gap-8 p-4 rounded-xl bg-secondary/50">
           {([3, 2, 1] as const).map((level) => (
             <div key={level} className="flex items-center gap-3">

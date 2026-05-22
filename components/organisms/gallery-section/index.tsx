@@ -16,7 +16,8 @@ import {
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
 import { GalleryCard } from './gallery-card'
-import { galleryData, GalleryItem } from './gallery-data'
+import { getGalleryData, GalleryItem } from './gallery-data'
+import { useI18n } from '@/hooks/use-i18n'
 import {
   Carousel,
   CarouselContent,
@@ -36,6 +37,8 @@ const LightboxModal = dynamic(
 )
 
 export function GallerySection() {
+  const { dict, lang } = useI18n()
+  const galleryData = getGalleryData(lang)
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null)
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
@@ -59,7 +62,7 @@ export function GallerySection() {
 
   return (
     <SectionWrapper id="gallery">
-      <SectionHeader title="Gallery" subtitle="다양한 활동 기록" />
+      <SectionHeader title={dict.gallery.title} subtitle={dict.gallery.subtitle} />
 
       {galleryData.length > 0 ? (
         <div className="px-12 relative group">
@@ -114,9 +117,9 @@ export function GallerySection() {
             <EmptyMedia variant="icon">
               <Camera className="w-8 h-8" />
             </EmptyMedia>
-            <EmptyTitle>활동 기록 준비 중</EmptyTitle>
+            <EmptyTitle>{dict.gallery.emptyTitle}</EmptyTitle>
             <EmptyDescription>
-              더 많은 활동 사진들이 곧 업데이트될 예정입니다.
+              {dict.gallery.emptyDescription}
             </EmptyDescription>
           </EmptyHeader>
         </Empty>

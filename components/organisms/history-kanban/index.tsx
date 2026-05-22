@@ -7,8 +7,9 @@ import { Layers, CheckCircle2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
-import { historyData, HistoryCard as HistoryCardType } from './history-data'
+import { getHistoryData, HistoryCard as HistoryCardType } from './history-data'
 import { HistoryCard } from './history-card'
+import { useI18n } from '@/hooks/use-i18n'
 
 // 상세 모달을 지연 로딩하여 초기 부하 분산
 const HistoryDetailModal = dynamic(
@@ -17,11 +18,13 @@ const HistoryDetailModal = dynamic(
 )
 
 export function HistoryKanbanSection() {
+  const { dict, lang } = useI18n()
+  const historyData = getHistoryData(lang)
   const [selectedCard, setSelectedCard] = useState<HistoryCardType | null>(null)
 
   return (
     <SectionWrapper id="history" className="bg-background">
-      <SectionHeader title="History">
+      <SectionHeader title={dict.history.title} subtitle={dict.history.subtitle}>
         <div className="flex items-center justify-center gap-4 text-xs font-medium text-muted-foreground">
           <span className="flex items-center gap-1"><Layers className="w-3 h-3 text-green-500" /> Story (Main Event)</span>
           <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-blue-400" /> Task (Activity)</span>

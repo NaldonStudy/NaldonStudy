@@ -6,8 +6,10 @@ import { ImageIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { withBasePath } from '@/lib/utils'
 import { Project } from '../projects-data'
+import { useI18n } from '@/hooks/use-i18n'
 
 export const GalleryTab = memo(({ project }: { project: Project }) => {
+  const { dict } = useI18n()
   if (!project.details.screenshots) return null
 
   return (
@@ -15,7 +17,7 @@ export const GalleryTab = memo(({ project }: { project: Project }) => {
       <section>
         <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
           <ImageIcon className="w-5 h-5 text-primary" />
-          프로젝트 스크린샷
+          {dict.projects.gallery.screenshots}
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {project.details.screenshots.map((screenshot, i) => (
@@ -32,7 +34,7 @@ export const GalleryTab = memo(({ project }: { project: Project }) => {
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <Button variant="secondary" size="sm" asChild>
-                    <a href={withBasePath(screenshot.src)} target="_blank" rel="noopener noreferrer">원본 보기</a>
+                    <a href={withBasePath(screenshot.src)} target="_blank" rel="noopener noreferrer">{dict.projects.gallery.viewOriginal}</a>
                   </Button>
                 </div>
               </div>

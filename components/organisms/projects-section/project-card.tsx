@@ -15,6 +15,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { withBasePath } from '@/lib/utils'
 import { Project } from './projects-data'
+import { useI18n } from '@/hooks/use-i18n'
 
 interface ProjectCardProps {
   project: Project
@@ -27,6 +28,7 @@ export const ProjectCard = memo(({
   index,
   onClick,
 }: ProjectCardProps) => {
+  const { dict } = useI18n()
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -83,7 +85,7 @@ export const ProjectCard = memo(({
             </span>
             <span className="flex items-center gap-1">
               <Users className="w-3.5 h-3.5" />
-              {project.teamSize}명
+              {project.teamSize}{dict.projects.teamSize}
             </span>
           </div>
 
@@ -126,7 +128,7 @@ export const ProjectCard = memo(({
               )}
             </div>
             <span className="text-xs text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
-              자세히 보기
+              {dict.projects.viewDetail}
               <ChevronRight className="w-3.5 h-3.5" />
             </span>
           </div>

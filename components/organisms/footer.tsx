@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, Heart, BookOpen } from 'lucide-react'
+import { useI18n } from '@/hooks/use-i18n'
 
 export function Footer() {
+  const { dict } = useI18n()
   const currentYear = new Date().getFullYear()
 
   return (
@@ -61,7 +63,7 @@ export function Footer() {
           <div className="text-center md:text-right">
             <h3 className="text-xl font-bold text-foreground">DH.Kim</h3>
             <p className="text-sm text-muted-foreground mt-1">
-              © {currentYear} 김도훈. All rights reserved.
+              © {currentYear} {dict.footer.rights}
             </p>
           </div>
           </motion.div>
@@ -78,7 +80,7 @@ export function Footer() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            ↑ Back to Top
+            ↑ {dict.footer.backToTop}
           </button>
         </motion.div>
       </div>

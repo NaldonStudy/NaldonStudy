@@ -8,14 +8,17 @@ import {
   Lightbulb 
 } from 'lucide-react'
 import { Project } from '../projects-data'
+import { useI18n } from '@/hooks/use-i18n'
 
 export const ProblemSolvingTab = memo(({ project }: { project: Project }) => {
+  const { dict } = useI18n()
+
   return (
     <div className="space-y-8 animate-in fade-in-50 duration-500">
       <section>
         <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
           <Zap className="w-5 h-5 text-yellow-500" />
-          도전 과제 & 해결 방안
+          {dict.projects.problem.challenges}
         </h3>
         <div className="space-y-6">
           {project.details.challenges.map((challenge, i) => (
@@ -49,7 +52,7 @@ export const ProblemSolvingTab = memo(({ project }: { project: Project }) => {
       <section>
         <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
           <Lightbulb className="w-5 h-5 text-amber-500" />
-          회고 및 성장
+          {dict.projects.problem.retrospective}
         </h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="p-6 rounded-2xl bg-secondary/30 border border-border/50 relative overflow-hidden group">
@@ -58,7 +61,7 @@ export const ProblemSolvingTab = memo(({ project }: { project: Project }) => {
             </div>
             <h4 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-battery-mid" />
-              아쉬운 점 & 개선 방안
+              {dict.projects.problem.improvements}
             </h4>
             <ul className="space-y-3">
               {project.details.retrospective.improvements.map((item, i) => (
@@ -76,7 +79,7 @@ export const ProblemSolvingTab = memo(({ project }: { project: Project }) => {
             </div>
             <h4 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-battery-full" />
-              기술적 배운 점
+              {dict.projects.problem.lessons}
             </h4>
             <ul className="space-y-3">
               {project.details.retrospective.lessonsLearned.map((item, i) => (

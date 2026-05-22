@@ -4,14 +4,17 @@ import { memo } from 'react'
 import { Code2, ListChecks } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Project } from '../projects-data'
+import { useI18n } from '@/hooks/use-i18n'
 
 export const TechnicalTab = memo(({ project }: { project: Project }) => {
+  const { dict } = useI18n()
+
   return (
     <div className="space-y-8 animate-in fade-in-50 duration-500">
       <section>
         <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
           <Code2 className="w-5 h-5 text-primary" />
-          사용 기술 스택
+          {dict.projects.technical.stack}
         </h3>
         <div className="flex flex-wrap gap-2 p-5 rounded-xl bg-secondary/30 border border-border/50">
           {project.techStack.map((tech) => (
@@ -25,7 +28,7 @@ export const TechnicalTab = memo(({ project }: { project: Project }) => {
       <section>
         <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
           <ListChecks className="w-5 h-5 text-primary" />
-          주요 구현 기능
+          {dict.projects.technical.features}
         </h3>
         <div className="grid sm:grid-cols-2 gap-3">
           {project.details.features.map((feature, i) => (

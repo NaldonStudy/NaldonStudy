@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 
 import { SectionHeader } from '@/components/atoms/section-header'
 import { SectionWrapper } from '@/components/atoms/section-wrapper'
+import { useI18n } from '@/hooks/use-i18n'
 
 interface ContactInfo {
   email: string
@@ -23,53 +24,7 @@ const contactInfo: ContactInfo = {
   linkedin: 'https://www.linkedin.com/in/도훈-김-6b56993a2',
 }
 
-const contactLinks = [
-  {
-    icon: <Mail className="w-6 h-6" />,
-    label: 'Email',
-    value: contactInfo.email,
-    href: `mailto:${contactInfo.email}`,
-    color: 'hover:bg-primary/10 hover:text-primary',
-  },
-  {
-    icon: <Github className="w-6 h-6" />,
-    label: 'GitHub',
-    value: 'NaldonStudy',
-    href: contactInfo.github,
-    color: 'hover:bg-foreground/10 hover:text-foreground',
-  },
-  {
-    icon: <Linkedin className="w-6 h-6" />,
-    label: 'LinkedIn',
-    value: '김도훈 (Dohun Kim)',
-    href: contactInfo.linkedin,
-    color: 'hover:bg-blue-500/10 hover:text-blue-500',
-  },
-  ...(contactInfo.blog
-    ? [
-        {
-          icon: <FileText className="w-6 h-6" />,
-          label: 'Blog',
-          value: 'Tech Blog',
-          href: contactInfo.blog,
-          color: 'hover:bg-accent/10 hover:text-accent',
-        },
-      ]
-    : []),
-  ...(contactInfo.kakao
-    ? [
-        {
-          icon: <MessageCircle className="w-6 h-6" />,
-          label: 'KakaoTalk',
-          value: contactInfo.kakao,
-          href: `https://open.kakao.com/me/${contactInfo.kakao}`,
-          color: 'hover:bg-yellow-500/10 hover:text-yellow-600',
-        },
-      ]
-    : []),
-]
-
-const ContactLink = memo(({ link, index }: { link: typeof contactLinks[0]; index: number }) => (
+const ContactLink = memo(({ link, index }: { link: any; index: number }) => (
   <motion.a
     href={link.href}
     target="_blank"
@@ -90,9 +45,35 @@ const ContactLink = memo(({ link, index }: { link: typeof contactLinks[0]; index
 ContactLink.displayName = 'ContactLink'
 
 export function ContactSection() {
+  const { dict } = useI18n()
+
+  const contactLinks = [
+    {
+      icon: <Mail className="w-6 h-6" />,
+      label: 'Email',
+      value: contactInfo.email,
+      href: `mailto:${contactInfo.email}`,
+      color: 'hover:bg-primary/10 hover:text-primary',
+    },
+    {
+      icon: <Github className="w-6 h-6" />,
+      label: 'GitHub',
+      value: 'NaldonStudy',
+      href: contactInfo.github,
+      color: 'hover:bg-foreground/10 hover:text-foreground',
+    },
+    {
+      icon: <Linkedin className="w-6 h-6" />,
+      label: 'LinkedIn',
+      value: 'Dohun Kim',
+      href: contactInfo.linkedin,
+      color: 'hover:bg-blue-500/10 hover:text-blue-500',
+    },
+  ]
+
   return (
     <SectionWrapper id="contact" className="bg-secondary/20">
-      <SectionHeader title="Contact" subtitle="언제든지 연락 주세요" />
+      <SectionHeader title={dict.contact.title} subtitle={dict.contact.subtitle} />
 
       <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -104,12 +85,10 @@ export function ContactSection() {
             <CardContent className="p-8">
               <div className="text-center mb-8">
                 <h3 className="text-xl font-semibold text-foreground mb-2">
-                  함께 성장하고 싶습니다
+                  {dict.contact.motto}
                 </h3>
-                <p className="text-muted-foreground">
-                  프로젝트 협업, 채용 문의, 또는 단순한 대화까지
-                  <br />
-                  편하게 연락해 주세요.
+                <p className="text-muted-foreground whitespace-pre-line">
+                  {dict.contact.description}
                 </p>
               </div>
 
@@ -123,7 +102,7 @@ export function ContactSection() {
                 <Button asChild size="lg" className="gap-2">
                   <a href={`mailto:${contactInfo.email}`}>
                     <Send className="w-4 h-4" />
-                    이메일 보내기
+                    {dict.contact.sendEmail}
                   </a>
                 </Button>
               </div>

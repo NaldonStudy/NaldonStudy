@@ -18,6 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { withBasePath } from '@/lib/utils'
 import { Project } from './projects-data'
+import { useI18n } from '@/hooks/use-i18n'
 
 import { OverviewTab } from './tabs/overview-tab'
 import { TechnicalTab } from './tabs/technical-tab'
@@ -35,6 +36,7 @@ export function ProjectDetailModal({
   isOpen,
   onClose,
 }: ProjectDetailModalProps) {
+  const { dict } = useI18n()
   const [activeTab, setActiveTab] = useState('overview')
 
   if (!project) return null
@@ -45,7 +47,7 @@ export function ProjectDetailModal({
         showCloseButton={false}
         className="sm:max-w-7xl w-full p-0 overflow-hidden border-border bg-card shadow-2xl rounded-2xl gap-0 max-h-[90vh] overflow-y-auto"
       >
-        <DialogTitle className="sr-only">{project.title} 상세정보</DialogTitle>
+        <DialogTitle className="sr-only">{project.title} {dict.projects.viewDetail}</DialogTitle>
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-50 p-2 rounded-full bg-background/80 hover:bg-background text-foreground transition-colors border border-border shadow-sm"
@@ -96,20 +98,20 @@ export function ProjectDetailModal({
             <TabsList className={`grid w-full ${project.details.screenshots ? 'grid-cols-4' : 'grid-cols-3'} mb-8`}>
               <TabsTrigger value="overview" className="gap-2">
                 <ListChecks className="w-4 h-4" />
-                <span className="hidden sm:inline">개요</span>
+                <span className="hidden sm:inline">{dict.projects.tabs.overview}</span>
               </TabsTrigger>
               <TabsTrigger value="technical" className="gap-2">
                 <Code2 className="w-4 h-4" />
-                <span className="hidden sm:inline">기술 & 기능</span>
+                <span className="hidden sm:inline">{dict.projects.tabs.technical}</span>
               </TabsTrigger>
               <TabsTrigger value="problem-solving" className="gap-2">
                 <Zap className="w-4 h-4" />
-                <span className="hidden sm:inline">문제 해결 & 회고</span>
+                <span className="hidden sm:inline">{dict.projects.tabs.problem}</span>
               </TabsTrigger>
               {project.details.screenshots && (
                 <TabsTrigger value="gallery" className="gap-2">
                   <ImageIcon className="w-4 h-4" />
-                  <span className="hidden sm:inline">갤러리</span>
+                  <span className="hidden sm:inline">{dict.projects.tabs.gallery}</span>
                 </TabsTrigger>
               )}
             </TabsList>

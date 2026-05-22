@@ -8,14 +8,16 @@ import {
   CheckCircle2 
 } from 'lucide-react'
 import { Project } from '../projects-data'
+import { useI18n } from '@/hooks/use-i18n'
 
 export const OverviewTab = memo(({ project }: { project: Project }) => {
+  const { dict } = useI18n()
   return (
     <div className="space-y-8 animate-in fade-in-50 duration-500">
       <section>
         <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
           <MessageSquare className="w-5 h-5 text-primary" />
-          프로젝트 소개
+          {dict.projects.overview.intro}
         </h3>
         <div className="p-5 rounded-xl bg-secondary/30 border border-border/50 text-muted-foreground leading-relaxed">
           {project.details.fullDescription}
@@ -26,7 +28,7 @@ export const OverviewTab = memo(({ project }: { project: Project }) => {
         <section>
           <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <Target className="w-5 h-5 text-accent" />
-            프로젝트 목표
+            {dict.projects.overview.goals}
           </h3>
           <ul className="space-y-3">
             {project.details.goals.map((goal, i) => (
@@ -41,14 +43,14 @@ export const OverviewTab = memo(({ project }: { project: Project }) => {
         <section className="flex flex-col">
           <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <Users className="w-5 h-5 text-primary" />
-            팀 구성
+            {dict.projects.overview.team}
           </h3>
           <div className="flex-1 p-5 rounded-xl border border-border/30 bg-secondary/10">
             {project.teamMembers ? (
               <div className="space-y-3">
                 <div className="text-center mb-4">
-                  <p className="text-3xl font-bold text-primary">{project.teamSize}명</p>
-                  <p className="text-xs text-muted-foreground">프로젝트 참여 인원</p>
+                  <p className="text-3xl font-bold text-primary">{project.teamSize}{dict.projects.teamSize}</p>
+                  <p className="text-xs text-muted-foreground">{dict.projects.overview.teamSubtitle}</p>
                 </div>
                 <div className="grid grid-cols-1 gap-2">
                   {project.teamMembers.map((member, i) => (
@@ -78,7 +80,7 @@ export const OverviewTab = memo(({ project }: { project: Project }) => {
                         )}
                       </div>
                       <span className={`text-sm font-bold ${member.isMe ? 'text-primary' : 'text-muted-foreground'}`}>
-                        {member.count}명
+                        {member.count}{dict.projects.teamSize}
                       </span>
                     </div>
                   ))}
@@ -87,8 +89,8 @@ export const OverviewTab = memo(({ project }: { project: Project }) => {
             ) : (
               <div className="h-full flex items-center justify-center">
                 <div className="text-center">
-                  <p className="text-4xl font-bold text-primary mb-1">{project.teamSize}명</p>
-                  <p className="text-sm text-muted-foreground">프로젝트 참여 인원</p>
+                  <p className="text-4xl font-bold text-primary mb-1">{project.teamSize}{dict.projects.teamSize}</p>
+                  <p className="text-sm text-muted-foreground">{dict.projects.overview.teamSubtitle}</p>
                 </div>
               </div>
             )}
