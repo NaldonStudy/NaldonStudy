@@ -25,22 +25,22 @@ const baseGalleryData: Omit<GalleryItem, 'title' | 'description'>[] = [
   {
     id: 'ssafy-daily-1',
     type: 'image',
-    src: '/assets/gallery/SSAFY 데일리컨텐츠 1번.png'
+    src: '/assets/gallery/ssafy-daily-01.png'
   },
   {
     id: 'ssafy-daily-2',
     type: 'image',
-    src: '/assets/gallery/SSAFY 데일리컨텐츠 2번.png'
+    src: '/assets/gallery/ssafy-daily-02.png'
   },
   {
     id: 'ssafy-meetup-1',
     type: 'image',
-    src: '/assets/gallery/SSAFY 밋업 1번.png'
+    src: '/assets/gallery/ssafy-meetup-01.png'
   },
   {
     id: 'ssafy-meetup-2',
     type: 'image',
-    src: '/assets/gallery/SSAFY 밋업 2번.png'
+    src: '/assets/gallery/ssafy-meetup-02.png'
   },
   {
     id: 'shorts-benefits',
@@ -63,22 +63,22 @@ const baseGalleryData: Omit<GalleryItem, 'title' | 'description'>[] = [
   {
     id: 'lab-1',
     type: 'image',
-    src: '/assets/gallery/연구실 1번.png'
+    src: '/assets/gallery/lab-01.png'
   },
   {
     id: 'lab-2',
     type: 'image',
-    src: '/assets/gallery/연구실 2번.png'
+    src: '/assets/gallery/lab-02.png'
   },
   {
     id: 'ssafy-broadcast',
     type: 'image',
-    src: '/assets/gallery/SSAFY 자치회방송.png'
+    src: '/assets/gallery/ssafy-broadcast.png'
   },
   {
     id: 'ssafy-ddd',
     type: 'image',
-    src: '/assets/gallery/SSAFY 코치세션-TDD DDD가 뭔가요.png'
+    src: '/assets/gallery/ssafy-coach-tdd-ddd.png'
   }
 ]
 
