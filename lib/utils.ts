@@ -15,10 +15,8 @@ export function withBasePath(path: string) {
 
   const cleanPath = path.startsWith('/') ? path : `/${path}`
 
-  // 로컬 개발 환경(next dev)에서는 basePath 없이 접근 가능해야 합니다.
-  // GitHub Pages 배포를 위한 빌드 시(production)에만 basePath를 추가합니다.
-  const isProd = process.env.NODE_ENV === 'production'
-  const basePath = isProd ? '/NaldonStudy' : ''
+  // 환경 변수로 설정된 basePath를 사용합니다. (로컬 테스트 및 배포 환경 모두 지원)
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
   if (basePath && cleanPath.startsWith(basePath)) return cleanPath
 

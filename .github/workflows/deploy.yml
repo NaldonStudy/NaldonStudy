@@ -46,6 +46,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Setup Pages
+        id: setup_pages
         uses: actions/configure-pages@v5
         with:
           static_site_generator: next
@@ -55,6 +56,8 @@ jobs:
 
       - name: Build with Next.js
         run: pnpm build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
